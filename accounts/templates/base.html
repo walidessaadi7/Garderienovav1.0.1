@@ -143,84 +143,159 @@
                 <ul class="space-y-2">
                     {% if user.is_authenticated %}
                         
+                        {% if user.role_type == 'owner' %}
                         <li class="dropdown-group relative group">
                             <div class="absolute inset-0 bg-emerald-500/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
                             <button onclick="toggleDropdown(this)" class="dropdown-trigger group relative z-30 flex items-center w-full gap-3 px-4 py-3 rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-700 text-white overflow-hidden shadow-[0_10px_25px_-5px_rgba(16,185,129,0.4)] transition-all duration-300 active:scale-[0.98]">
                                 <div class="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
                                 <div class="relative z-10 flex-shrink-0 flex items-center justify-center w-9 h-9 bg-white/20 rounded-xl backdrop-blur-md border border-white/30 transition-transform duration-300 group-hover:rotate-[8deg]">
-                                    <i class="fa-solid fa-house-chimney text-[14px]"></i>
+                                    <i class="fa-solid fa-layer-group text-[14px]"></i>
                                 </div>
                                 <div class="sidebar-label relative z-10 flex flex-col items-start text-left">
-                                    <span class="font-extrabold tracking-wide text-[13.5px]">Dashboard</span>
-                                    <span class="text-[8.5px] font-bold text-emerald-300/90 uppercase tracking-[0.15em]">
-                                        {% if user.role_type == 'owner' %}Network Admin{% else %}Center Management{% endif %}
-                                    </span>
+                                    <span class="font-extrabold tracking-wide text-[13.5px]">Network Admin</span>
+                                    <span class="text-[8.5px] font-bold text-emerald-300/90 uppercase tracking-[0.15em]">Owner Dashboard</span>
                                 </div>
                                 <i class="sidebar-label fa-solid fa-chevron-right text-[10px] ml-auto transition-transform duration-500 chevron"></i>
                             </button>
-                            
                             <div class="dropdown-content overflow-hidden max-h-0 transition-all duration-500 ease-in-out relative z-20">
                                 <div class="mt-2 mx-2 bg-slate-800/50 rounded-xl p-2 space-y-1 border border-white/5">
-                                    <a href="{% url 'dashboard_redirect' %}" class="flex items-center px-4 py-3 text-[12px] text-white/80 hover:bg-emerald-500 hover:text-white rounded-lg transition-all">
-                                        <i class="fa-solid fa-chart-line mr-3 opacity-70"></i>
-                                        <span class="sidebar-label">Analytics Overview</span>
-                                    </a>
-            
-                                    {% if user.role_type == 'owner' %}
                                     <a href="/organizations/" class="flex items-center px-4 py-3 text-[12px] text-white/80 hover:bg-emerald-500 hover:text-white rounded-lg transition-all">
-                                        <i class="fa-solid fa-server mr-3 opacity-70"></i>
-                                        <span class="sidebar-label">Manage Centers</span>
+                                        <i class="fa-solid fa-plus-minus mr-3 opacity-70"></i>
+                                        <span class="sidebar-label">Create / Delete Center</span>
                                     </a>
-                                    <a href='#' class="flex items-center px-4 py-3 text-[12px] text-white/80 hover:bg-emerald-500 hover:text-white rounded-lg transition-all">
-                                        <i class="fa-solid fa-user-tie mr-3 opacity-70"></i>
-                                        <span class="sidebar-label">Add Director</span>
+                                    <a href="#" class="flex items-center px-4 py-3 text-[12px] text-white/80 hover:bg-emerald-500 hover:text-white rounded-lg transition-all">
+                                        <i class="fa-solid fa-user-gear mr-3 opacity-70"></i>
+                                        <span class="sidebar-label">Assign Director</span>
                                     </a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </li>
-            
-                        {% if user.role_type == 'director' or user.role_type == 'educator' %}
-                        <li class="dropdown-group relative group">
-                            <button onclick="toggleDropdown(this)" class="dropdown-trigger group relative z-30 flex items-center w-full gap-3 px-4 py-3 rounded-2xl bg-gradient-to-br from-slate-700 to-slate-800 text-white overflow-hidden transition-all duration-300 active:scale-[0.98]">
-                                <div class="relative z-10 flex-shrink-0 flex items-center justify-center w-9 h-9 bg-white/10 rounded-xl border border-white/20 transition-transform duration-300 group-hover:rotate-[8deg]">
-                                    <i class="fa-solid fa-children text-[14px]"></i>
-                                </div>
-                                <div class="sidebar-label relative z-10 flex flex-col items-start text-left">
-                                    <span class="font-bold text-[14px]">Child Management</span>
-                                    <span class="text-[9px] text-slate-300 uppercase tracking-widest">Control Center</span>
-                                </div>
-                                <i class="sidebar-label fa-solid fa-chevron-down text-[10px] ml-auto transition-transform duration-500 chevron"></i>
-                            </button>
-                            <div class="dropdown-content overflow-hidden max-h-0 transition-all duration-500 ease-in-out relative z-20">
-                                <div class="mt-2 mx-2 bg-slate-800/60 rounded-xl p-2 space-y-1 border border-white/5">
-                                    <a href="/students/profiles/" class="flex items-center px-4 py-3 text-[12px] text-white/80 hover:bg-emerald-500 hover:text-white rounded-lg transition-all">
-                                        <i class="fa-solid fa-user-graduate mr-3 opacity-70"></i>
-                                        <span class="sidebar-label">Child Profiles</span>
+                                    <a href="#" class="flex items-center px-4 py-3 text-[12px] text-white/80 hover:bg-emerald-500 hover:text-white rounded-lg transition-all">
+                                        <i class="fa-solid fa-chart-pie mr-3 opacity-70"></i>
+                                        <span class="sidebar-label">View Global Stats</span>
                                     </a>
-                                    <a href="/operations/attendance/" class="flex items-center px-4 py-3 text-[12px] text-white/80 hover:bg-emerald-500 hover:text-white rounded-lg transition-all">
-                                        <i class="fa-solid fa-clock mr-3 opacity-70"></i>
-                                        <span class="sidebar-label">Attendance Log</span>
+                                    <a href="#" class="flex items-center px-4 py-3 text-[12px] text-white/80 hover:bg-emerald-500 hover:text-white rounded-lg transition-all">
+                                        <i class="fa-solid fa-scale-balanced mr-3 opacity-70"></i>
+                                        <span class="sidebar-label">Compliance (Read-only)</span>
                                     </a>
                                 </div>
                             </div>
                         </li>
                         {% endif %}
-                        
             
-                        <li class="pt-4 border-t border-white/5">
+                        {% if user.role_type == 'director' %}
+                        <li class="dropdown-group relative group">
+                            <button onclick="toggleDropdown(this)" class="dropdown-trigger group relative z-30 flex items-center w-full gap-3 px-4 py-3 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 text-white overflow-hidden shadow-lg transition-all duration-300 active:scale-[0.98]">
+                                <div class="relative z-10 flex-shrink-0 flex items-center justify-center w-9 h-9 bg-white/20 rounded-xl backdrop-blur-md border border-white/30 transition-transform duration-300 group-hover:rotate-[8deg]">
+                                    <i class="fa-solid fa-user-tie text-[14px]"></i>
+                                </div>
+                                <div class="sidebar-label relative z-10 flex flex-col items-start text-left">
+                                    <span class="font-extrabold tracking-wide text-[13.5px]">Director Panel</span>
+                                    <span class="text-[8.5px] font-bold text-blue-200/90 uppercase tracking-[0.15em]">Directeur name</span>
+                                </div>
+                                <i class="sidebar-label fa-solid fa-chevron-right text-[10px] ml-auto transition-transform duration-500 chevron"></i>
+                            </button>
+                            <div class="dropdown-content overflow-hidden max-h-0 transition-all duration-500 ease-in-out relative z-20">
+                                <div class="mt-2 mx-2 bg-slate-800/50 rounded-xl p-2 space-y-1 border border-white/5">
+                                    <a href="#" class="flex items-center px-4 py-2 text-[12px] text-white/80 hover:bg-blue-500 hover:text-white rounded-lg transition-all">
+                                        <i class="fa-solid fa-users-gear mr-3 opacity-70"></i>
+                                        <span class="sidebar-label">Staff & Rooms</span>
+                                    </a>
+                                    <a href="#" class="flex items-center px-4 py-2 text-[12px] text-white/80 hover:bg-blue-500 hover:text-white rounded-lg transition-all">
+                                        <i class="fa-solid fa-children mr-3 opacity-70"></i>
+                                        <span class="sidebar-label">Children & Enrollment</span>
+                                    </a>
+                                    <a href="#" class="flex items-center px-4 py-2 text-[12px] text-white/80 hover:bg-blue-500 hover:text-white rounded-lg transition-all">
+                                        <i class="fa-solid fa-eye mr-3 opacity-70"></i>
+                                        <span class="sidebar-label">Supervision & Validation</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        {% endif %}
+            
+                        {% if user.role_type == 'educator' %}
+                        <li class="dropdown-group relative group">
+                            <button onclick="toggleDropdown(this)" class="dropdown-trigger group relative z-30 flex items-center w-full gap-3 px-4 py-3 rounded-2xl bg-gradient-to-br from-indigo-600 to-slate-700 text-white overflow-hidden shadow-lg transition-all duration-300 active:scale-[0.98]">
+                                <div class="relative z-10 flex-shrink-0 flex items-center justify-center w-9 h-9 bg-white/10 rounded-xl border border-white/20 transition-transform duration-300 group-hover:rotate-[8deg]">
+                                    <i class="fa-solid fa-chalkboard-user text-[14px]"></i>
+                                </div>
+                                <div class="sidebar-label relative z-10 flex flex-col items-start text-left">
+                                    <span class="font-bold text-[14px]">Classroom Hub</span>
+                                    <span class="text-[9px] text-indigo-200 uppercase tracking-widest">Educator</span>
+                                </div>
+                                <i class="sidebar-label fa-solid fa-chevron-down text-[10px] ml-auto transition-transform duration-500 chevron"></i>
+                            </button>
+                            <div class="dropdown-content overflow-hidden max-h-0 transition-all duration-500 ease-in-out relative z-20">
+                                <div class="mt-2 mx-2 bg-slate-800/60 rounded-xl p-2 space-y-1 border border-white/5">
+                                    <a href="#" class="flex items-center px-4 py-2 text-[12px] text-white/80 hover:bg-indigo-500 hover:text-white rounded-lg transition-all">
+                                        <i class="fa-solid fa-clipboard-check mr-3 opacity-70"></i>
+                                        <span class="sidebar-label">Daily Operations</span>
+                                    </a>
+                                    <a href="#" class="flex items-center px-4 py-2 text-[12px] text-white/80 hover:bg-indigo-500 hover:text-white rounded-lg transition-all">
+                                        <i class="fa-solid fa-people-roof mr-3 opacity-70"></i>
+                                        <span class="sidebar-label">Room View & Ratio</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        {% endif %}
+            
+                        {% if user.role_type == 'parent' %}
+                        <li class="dropdown-group relative group">
+                            <button onclick="toggleDropdown(this)" class="dropdown-trigger group relative z-30 flex items-center w-full gap-3 px-4 py-3 rounded-2xl bg-gradient-to-br from-rose-500 to-rose-600 text-white overflow-hidden shadow-lg transition-all duration-300 active:scale-[0.98]">
+                                <div class="relative z-10 flex-shrink-0 flex items-center justify-center w-9 h-9 bg-white/20 rounded-xl backdrop-blur-md border border-white/30 transition-transform duration-300 group-hover:scale-110">
+                                    <i class="fa-solid fa-heart text-[14px]"></i>
+                                </div>
+                                <div class="sidebar-label relative z-10 flex flex-col items-start text-left">
+                                    <span class="font-extrabold tracking-wide text-[13.5px]">My Child</span>
+                                    <span class="text-[8.5px] font-bold text-rose-200 uppercase tracking-[0.15em]">parent name</span>
+                                </div>
+                                <i class="sidebar-label fa-solid fa-chevron-right text-[10px] ml-auto transition-transform duration-500 chevron"></i>
+                            </button>
+                            <div class="dropdown-content overflow-hidden max-h-0 transition-all duration-500 ease-in-out relative z-20">
+                                <div class="mt-2 mx-2 bg-slate-800/50 rounded-xl p-2 space-y-1 border border-white/5">
+                                    <div class="px-4 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-tighter">View Tracking</div>
+                                    <a href="#" class="flex items-center px-4 py-2 text-[12px] text-white/80 hover:bg-rose-500 hover:text-white rounded-lg transition-all">
+                                        <i class="fa-solid fa-calendar-day mr-3 opacity-70"></i>
+                                        <span class="sidebar-label">Daily Reports</span>
+                                    </a>
+                                    <a href="#" class="flex items-center px-4 py-2 text-[12px] text-white/80 hover:bg-rose-500 hover:text-white rounded-lg transition-all">
+                                        <i class="fa-solid fa-stream mr-3 opacity-70"></i>
+                                        <span class="sidebar-label">Timeline (Suivi)</span>
+                                    </a>
+                                    <a href="#" class="flex items-center px-4 py-2 text-[12px] text-white/80 hover:bg-rose-500 hover:text-white rounded-lg transition-all">
+                                        <i class="fa-solid fa-file-pdf mr-3 opacity-70"></i>
+                                        <span class="sidebar-label">Documents</span>
+                                    </a>
+            
+                                    <div class="px-4 py-2 mt-2 text-[10px] font-bold text-slate-500 uppercase tracking-tighter">Actions</div>
+                                    <a href="#" class="flex items-center px-4 py-2 text-[12px] text-white/80 hover:bg-rose-500 hover:text-white rounded-lg transition-all">
+                                        <i class="fa-solid fa-bed-pulse mr-3 opacity-70"></i>
+                                        <span class="sidebar-label">Report Absence</span>
+                                    </a>
+                                    <a href="#" class="flex items-center px-4 py-2 text-[12px] text-white/80 hover:bg-rose-500 hover:text-white rounded-lg transition-all">
+                                        <i class="fa-solid fa-comments mr-3 opacity-70"></i>
+                                        <span class="sidebar-label">Chat with Educator</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        {% endif %}
+            
+                        <li class="pt-4 border-t border-white/5 space-y-1">
+                            <a href="#" class="flex items-center w-full px-5 py-3 text-slate-400 hover:text-emerald-400 transition-colors group">
+                                <i class="fa-solid fa-clipboard-list mr-3 text-[14px] opacity-70 group-hover:opacity-100"></i>
+                                <span class="sidebar-label font-bold text-[13px]">System Logs</span>
+                            </a>
+            
                             <form action="{% url 'logout' %}" method="post">
                                 {% csrf_token %}
-                                <button type="submit" class="flex items-center w-full px-5 py-3 text-slate-400 hover:text-red-400 transition-colors">
-                                    <i class="fa-solid fa-right-from-bracket mr-3 text-[14px]"></i>
+                                <button type="submit" class="flex items-center w-full px-5 py-3 text-slate-400 hover:text-red-400 transition-colors group">
+                                    <i class="fa-solid fa-right-from-bracket mr-3 text-[14px] opacity-70 group-hover:opacity-100"></i>
                                     <span class="sidebar-label font-bold text-[13px]">Logout Account</span>
                                 </button>
                             </form>
                         </li>
-                        
             
                     {% endif %}
-                    
                 </ul>
             </nav>
     
