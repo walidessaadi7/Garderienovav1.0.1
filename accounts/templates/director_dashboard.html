@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ center.name }} Dashboard</h1>
+
+<div class="stats-grid">
+    <div class="card">
+        <h3>Groups Overview</h3>
+        {% for group in groups %}
+        <div class="group-row">
+            <strong>{{ group.name }}</strong>: 
+            <span class="{% if group.is_compliant %}green{% else %}red{% endif %}">
+                {{ group.current_total_points }} pts (Required: {{ group.required_educators }} staff)
+            </span>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="card">
+        <h3>Quick Actions</h3>
+        <ul>
+            <li><a href="{% url 'add_educator' %}">+ Add New Educator</a></li>
+            <li><a href="{% url 'add_child' %}">+ Enroll New Child</a></li>
+            <li><a href="{% url 'daily_report_list' %}">View Pending Signatures</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
