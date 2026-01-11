@@ -1,5 +1,5 @@
 from django.db import models
-"""
+
 import uuid
 from django.db import models
 #hada radi ikon lcore dyal app
@@ -30,4 +30,4 @@ class Group(models.Model):
     # Real-time Stats (Calculated fields)
     current_total_points = models.IntegerField(default=0)
     is_compliant = models.BooleanField(default=True)
-    """
+    

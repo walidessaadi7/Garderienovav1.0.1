@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test # <--- Had l-line darori
 from .models import User, Director
-
+from dashboard.models import Center
 from django.db.models import Q
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
@@ -72,11 +72,11 @@ def educator_dashboard(request):
 @login_required
 def parent_dashboard(request):
     return render(request, 'parent_dashboard.html')
-#3ndak t7yed had function
-
-#def is_owner(user):
- #  return user.role_type == 'owner'
+#ownner li imken li i crerr director
 """
+def is_owner(user):
+   return user.role_type == 'owner'
+
 @login_required
 @user_passes_test(is_owner)
 def create_director(request):

@@ -159,17 +159,18 @@
                             </button>
                             <div class="dropdown-content overflow-hidden max-h-0 transition-all duration-500 ease-in-out relative z-20">
                                 <div class="mt-2 mx-2 bg-slate-800/50 rounded-xl p-2 space-y-1 border border-white/5">
-                                    <a href="/organizations/" class="flex items-center px-4 py-3 text-[12px] text-white/80 hover:bg-emerald-500 hover:text-white rounded-lg transition-all">
+                                    <a href="{% url 'create_center' %}" class="flex items-center px-4 py-3 text-[12px] text-white/80 hover:bg-emerald-500 hover:text-white rounded-lg transition-all">
                                         <i class="fa-solid fa-plus-minus mr-3 opacity-70"></i>
-                                        <span class="sidebar-label">Create / Delete Center</span>
+                                        <span class="sidebar-label">Create Center</span>
                                     </a>
-                                    <a href="#" class="flex items-center px-4 py-3 text-[12px] text-white/80 hover:bg-emerald-500 hover:text-white rounded-lg transition-all">
-                                        <i class="fa-solid fa-user-gear mr-3 opacity-70"></i>
-                                        <span class="sidebar-label">Assign Director</span>
-                                    </a>
-                                    <a href="#" class="flex items-center px-4 py-3 text-[12px] text-white/80 hover:bg-emerald-500 hover:text-white rounded-lg transition-all">
-                                        <i class="fa-solid fa-chart-pie mr-3 opacity-70"></i>
-                                        <span class="sidebar-label">View Global Stats</span>
+                                    <a href="#" 
+                                    class="flex items-center px-4 py-3 text-[12px] text-white/80 hover:bg-emerald-500 hover:text-white rounded-lg transition-all group">
+                                     <i class="fa-solid fa-user-gear mr-3 opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                                     <span class="sidebar-label font-bold">Assign Director</span>
+                                 </a>
+                                    <a href="{% url 'owner_centers_list' %}" class="flex items-center px-4 py-3 text-[12px] text-white/80 hover:bg-emerald-500 hover:text-white rounded-lg transition-all group">
+                                        <i class="fa-solid fa-layer-group mr-3 opacity-70 group-hover:opacity-100"></i>
+                                        <span class="sidebar-label font-bold">Manage My Centers</span>
                                     </a>
                                     <a href="#" class="flex items-center px-4 py-3 text-[12px] text-white/80 hover:bg-emerald-500 hover:text-white rounded-lg transition-all">
                                         <i class="fa-solid fa-scale-balanced mr-3 opacity-70"></i>
