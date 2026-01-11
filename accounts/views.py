@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, user_passes_test # <--- Had l-line darori
+from django.contrib.auth.decorators import login_required
 from .models import User, Director
 from dashboard.models import Center
 from django.db.models import Q
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
+from .models import Owner,Parent,Director
 
 def login_view(request):
     if request.method == 'POST':
@@ -72,6 +73,26 @@ def educator_dashboard(request):
 @login_required
 def parent_dashboard(request):
     return render(request, 'parent_dashboard.html')
+@login_required
+def personal_profile(request):
+    user = request.user
+    role_info = None
+    
+    # Check l-role (khass t-koun lower case 'owner' hit hka dertiha f models)
+    if user.role_type == 'owner':
+        role_info = Owner.objects.filter(user=user).first()
+    elif user.role_type == 'director':
+        role_info = Director.objects.filter(user=user).first()
+    elif user.role_type == 'parent':
+        role_info = Parent.objects.filter(user=user).first()
+
+    context = {
+        'user': user,
+        'role_info': role_info,
+        'page_title': "Identity Console",
+    }
+    
+    return render(request, 'profile.html', context)
 #ownner li imken li i crerr director
 """
 def is_owner(user):
