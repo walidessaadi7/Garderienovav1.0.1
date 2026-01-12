@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Organization, Center
-from .forms import CenterCreationForm,DirectorCreationForm
+from .forms import CenterCreationForm,DirectorCreationForm,AssignDirectorForm
 from django.shortcuts import render, get_object_or_404
 from .models import Center, Organization
-from django.core.mail import send_mail
+from django.core.mail import send_mail #hadi mzal mkhdemti biha
 from django.conf import settings
 
 @login_required
@@ -64,3 +64,21 @@ def create_director_general(request):
         form = DirectorCreationForm()
     
     return render(request, 'create_director.html', {'form': form})
+def assign_director_to_center(request, center_id):
+    # Kan-jibo l-center w t-akked m-rbot b l-org dyal had l-user
+    center = get_object_or_404(Center, center_id=center_id, org__owner__user=request.user)
+    
+    if request.method == 'POST':
+        # Pass user to form in POST
+        form = AssignDirectorForm(request.POST, instance=center, user=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('owner_centers_list')
+    else:
+        # Pass user to form in GET (Hna fin knti nassiha)
+        form = AssignDirectorForm(instance=center, user=request.user)
+    
+    return render(request, 'assign_director.html', {
+        'form': form,
+        'center': center
+    })

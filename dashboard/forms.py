@@ -73,4 +73,31 @@ class DirectorCreationForm(forms.ModelForm):
             director.save()
         return director
 
+class AssignDirectorForm(forms.ModelForm):
+    # Definir l-field dyal director b queryset khawi fl-lowel
+    director = forms.ModelChoiceField(
+        queryset=Director.objects.none(),
+        required=True,
+        empty_label="Select a Director",
+        widget=forms.Select(attrs={
+            'class': 'premium-input w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all'
+        })
+    )
+
+    class Meta:
+        model = Center
+        fields = ['director']
+
+    def __init__(self, *args, **kwargs):
+        # Nakhdo l-user li t-passa men l-view
+        user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+        # Hna n-filtrer l-directeurs:
+        # 1. center__isnull=True: Bach may-banouch l-directeurs li khdamins deja f center akhor.
+        # Note: Hit l-models dyalk ma-fihomch 'created_by', ghadi n-werriw ga3 l-directeurs li available.
+        self.fields['director'].queryset = Director.objects.filter(center__isnull=True)
+        
+        # Ila derti labels khorin:
+        self.fields['director'].label = "Available Directors"
     

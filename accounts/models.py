@@ -19,6 +19,8 @@ class Director(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     qualification_cert = models.CharField(max_length=255)
     hired_at = models.DateField()
+    def __str__(self):
+        return self.user.full_name
 
 class Parent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)

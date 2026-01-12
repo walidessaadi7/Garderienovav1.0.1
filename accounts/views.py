@@ -58,10 +58,21 @@ def logout_view(request):
     return redirect('login')
 @login_required
 def owner_dashboard(request):
-    # Hna mli l-base.html at-chof user.role_type == 'owner', at-tl3 lih navbar d l-owner
-    center = Center.objects.filter(org__owner__user=request.user).first()
-    return render(request, 'owner_dashboard.html')
+    # 1. Jib l-owner profile men l-user li m-connecti
+    # Kant-fardo belli l-relation smitha 'owner_profile' f l-model User
+    try:
+        owner = request.user.owner_profile
+    except AttributeError:
+        # Ila l-user m-connecti walakin ma-3andouch profile owner
+        return render(request, 'owner_dashboard.html', {'centers': []})
 
+    # 2. Jib l-centers li tab3in l had l-owner (via Organization)
+    centers = Center.objects.filter(org__owner=owner)
+
+    # 3. Sift l-data l-template (DABA GHADI T-BAN F SIDEBAR)
+    return render(request, 'owner_dashboard.html', {
+        'centers': centers
+    })
 @login_required
 def director_dashboard(request):
     # Idem pour le directeur
