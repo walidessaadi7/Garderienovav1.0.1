@@ -59,6 +59,7 @@ def logout_view(request):
 @login_required
 def owner_dashboard(request):
     # Hna mli l-base.html at-chof user.role_type == 'owner', at-tl3 lih navbar d l-owner
+    center = Center.objects.filter(org__owner__user=request.user).first()
     return render(request, 'owner_dashboard.html')
 
 @login_required

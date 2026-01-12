@@ -9,5 +9,7 @@ urlpatterns = [
     path('center/success/<uuid:center_id>/', views.center_success, name='center_success'),
     path('center/details/<uuid:center_id>/', views.center_info_view, name='center_details'),
     path('my-centers/', views.owner_centers_list, name='owner_centers_list'),
+    path('add-director/', views.create_director_general, name='add_director_general'),
    # path('center/<uuid:center_id>/assign-director/', views.assign_director, name='assign_director'),
+   
 ]

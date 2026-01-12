@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Organization, Center
-from .forms import CenterCreationForm
+from .forms import CenterCreationForm,DirectorCreationForm
 from django.shortcuts import render, get_object_or_404
 from .models import Center, Organization
+from django.core.mail import send_mail
+from django.conf import settings
 
 @login_required
 def create_center(request):
@@ -33,6 +35,7 @@ def center_success(request, center_id):
     # Fetch the newly created center to show its name
     center = get_object_or_404(Center, center_id=center_id, org__owner__user=request.user)
     return render(request, 'center_congrats.html', {'center': center})
+@login_required
 def center_info_view(request, center_id):
     # Security Check: Njibou l-center b l-ID walakin khass darouri 
     # ikoun taba3 l-organization dial dak l-user li m-connecti.
@@ -48,3 +51,16 @@ def center_info_view(request, center_id):
 def owner_centers_list(request):
     centers = Center.objects.filter(org__owner__user=request.user)
     return render(request, 'centers_list.html', {'centers': centers})
+
+#hna dyal send email sir setting 3endak tensa
+def create_director_general(request):
+    if request.method == 'POST':
+        form = DirectorCreationForm(request.POST)
+        if form.is_valid():
+            director = form.save()
+            # Mn be3d ma t-creera l-director, sift l-owner i-assignih
+            return redirect('owner_centers_list') # Page fin i-assignih
+    else:
+        form = DirectorCreationForm()
+    
+    return render(request, 'create_director.html', {'form': form})
