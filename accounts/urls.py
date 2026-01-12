@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     # 1. Login Page (kat-asta3mel template login.html li sayebna)
-    path('', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('', views.login_view, name='login'),
     
     # 2. Logout Action
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),

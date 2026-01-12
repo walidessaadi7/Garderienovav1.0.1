@@ -31,7 +31,7 @@ def login_view(request):
                 return render(request, 'login.html', {'error': 'Invalid password. Please try again.', 'type': 'error'})
         else:
             # Username/Email ghalat
-            return render(request, 'login.html', {'error': 'No account found with this email/username.', 'type': 'error'})
+            return render(request, 'login.html', {'error': 'No account found with this username.', 'type': 'error'})
 
     return render(request, 'login.html',)
 # --- 3. REDIRECTION LOGIC (The Traffic Controller) ---
