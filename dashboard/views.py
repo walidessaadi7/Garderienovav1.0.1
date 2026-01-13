@@ -1,9 +1,11 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Organization, Center
 from .forms import CenterCreationForm,DirectorCreationForm,AssignDirectorForm
 from django.shortcuts import render, get_object_or_404
 from .models import Center, Organization
+from accounts.models import Educator,Director, User
 from django.core.mail import send_mail #hadi mzal mkhdemti biha
 from django.conf import settings
 #-----------------------------------------------center__info---------------------------------------------------------------------------------
@@ -95,4 +97,61 @@ def assign_director_to_center(request, center_id):
     return render(request, 'assign_director.html', {
         'form': form,
         'center': center
+    })
+#---------------------------------------------------educator info-----------------------------------------------------------------
+@login_required
+def create_educator(request):
+    # 1. Get l-Director object dyal had l-user li m-connecte daba
+    # Ghadi n-asta3mlo get_object_or_404 bach ila makansh director t-tla3 404
+    current_director = get_object_or_404(Director, user=request.user)
+
+    if request.method == 'POST':
+        # 2. Check: Wach had l-Director 3ndo Center m-assigné lih?
+        # Hna kantsme3 l-field li smitou 'organization' f l-model dyalk aw center
+        # 3la hsab l-error li tla3 lik: current_director.center
+        try:
+            director_center = current_director.center 
+            if not director_center:
+                raise AttributeError
+        except AttributeError:
+            messages.error(request, "Impossible d'ajouter un éducateur: Vous n'êtes assigné à aucun centre.")
+            return redirect('owner_centers_list')
+
+        # 3. Recuperation dyal l-data
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        full_name = request.POST.get('full_name')
+        
+        # 4. Create l-User
+        new_user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password,
+            full_name=full_name,
+            role_type='educator'
+        )
+        
+        # 5. Create l-Educator linked to the Director's Center
+        Educator.objects.create(
+            user=new_user,
+            manager=current_director,
+            center=director_center, # Hna khda l-center dyal l-director login
+            specialization=request.POST.get('specialization')
+        )
+        
+        messages.success(request, f"L'éducateur {full_name} a été ajouté avec succès.")
+        return redirect('educator_list')
+        
+    return render(request, 'create_educator.html')
+@login_required
+def educator_list(request):
+    # Jib l-director li m-connecte
+    current_director = get_object_or_404(Director, user=request.user)
+    
+    # Jib ga3 l-educators li taba3in lih (via manager field)
+    educators = Educator.objects.filter(manager=current_director)
+    
+    return render(request, 'educator_list.html', {
+        'educators': educators
     })

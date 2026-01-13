@@ -11,5 +11,7 @@ urlpatterns = [
     path('my-centers/', views.owner_centers_list, name='owner_centers_list'),
     path('add-director/', views.create_director_general, name='add_director_general'),
     path('center/<uuid:center_id>/assign-director/', views.assign_director_to_center, name='assign_director'),
+    path('educators/new/', views.create_educator, name='create_educator'),
+    path('educators/', views.educator_list, name='educator_list'),
    
 ]
