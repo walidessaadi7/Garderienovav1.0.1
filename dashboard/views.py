@@ -1,4 +1,4 @@
-from django.contrib import messages
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Organization, Center
@@ -140,7 +140,7 @@ def create_educator(request):
             specialization=request.POST.get('specialization')
         )
         
-        messages.success(request, f"L'éducateur {full_name} a été ajouté avec succès.")
+        
         return redirect('educator_list')
         
     return render(request, 'create_educator.html')

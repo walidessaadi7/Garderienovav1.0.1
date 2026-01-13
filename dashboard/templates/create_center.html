@@ -1,130 +1,120 @@
 {% extends "base.html" %}
-
 {% block content %}
 <div class="relative min-h-[90vh] bg-white dark:bg-slate-950 overflow-hidden flex items-center justify-center py-8 px-6">
     
     <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute top-[-10%] left-[10%] w-[500px] h-[500px] bg-indigo-400/5 rounded-full blur-[120px]"></div>
+        <div class="absolute top-[-10%] left-[10%] w-[500px] h-[500px] bg-blue-400/5 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-[10%] right-[5%] w-[400px] h-[400px] bg-emerald-400/5 rounded-full blur-[100px]"></div>
     </div>
 
-    <div class="relative z-10 max-w-7xl w-full space-y-8">
+    <div class="relative z-10 max-w-5xl w-full grid lg:grid-cols-12 gap-8 items-start">
         
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-8">
-            <div class="space-y-2">
-                <div class="inline-flex items-center gap-2 px-2 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800">
-                    <i class="fa-solid fa-user-plus text-indigo-500 text-[9px]"></i>
-                    <span class="text-[9px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-widest">Onboarding</span>
-                </div>
-                <h1 class="text-4xl font-black text-slate-900 dark:text-white tracking-tighter">
-                    New <span class="text-indigo-600">Educator.</span>
+        <div class="lg:col-span-5 space-y-6 pt-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm">
+                <i class="fa-solid fa-building-circle-plus text-blue-500 text-[10px]"></i>
+                <span class="text-[9px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.2em]">Center Registration</span>
+            </div>
+
+            <div class="space-y-3">
+                <h1 class="text-4xl font-black text-slate-900 dark:text-white leading-tight tracking-tighter">
+                    Expand your<br>
+                    <span class="bg-gradient-to-r from-blue-600 to-emerald-400 bg-clip-text text-transparent">Organization.</span>
                 </h1>
-                <p class="text-sm text-slate-400 font-medium">Register and assign staff to your infrastructure in one step.</p>
+                <p class="text-base text-slate-400 font-medium leading-relaxed">
+                    Registering a new center under <span class="text-slate-900 dark:text-white font-bold">{{ organization.name }}</span>.
+                </p>
             </div>
-            
-            <a href="{% url 'owner_centers_list' %}" class="text-[10px] font-black text-slate-400 hover:text-indigo-600 uppercase tracking-widest transition-all flex items-center gap-2">
-                <i class="fa-solid fa-chevron-left text-[8px]"></i> Back to Management
-            </a>
+
+            <div class="flex flex-col gap-3 pt-2">
+                <div class="flex items-center gap-3">
+                    <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white text-[10px] font-bold shadow-lg animate-pulse">1</div>
+                    <span class="text-[11px] font-black text-slate-900 dark:text-white uppercase tracking-widest tracking-tighter">Basic Details</span>
+                </div>
+                <div class="flex items-center gap-3 opacity-40">
+                    <div class="w-6 h-6 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-[10px] font-bold text-slate-500">2</div>
+                    <span class="text-[11px] font-black text-slate-500 uppercase tracking-widest tracking-tighter">Director Assignment</span>
+                </div>
+            </div>
         </div>
 
-        <div class="bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-100 dark:border-slate-800 p-2 shadow-sm relative">
-            
-            <form method="POST" class="flex flex-col lg:flex-row items-end gap-4 p-4">
-                {% csrf_token %}
+        <div class="lg:col-span-7">
+            <div class="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-8 shadow-[0_20px_50px_rgba(0,0,0,0.03)] relative">
                 
-                <div class="w-full lg:flex-1 relative group">
-                    <label class="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2 px-1 group-focus-within:text-indigo-500 transition-colors">
-                        Full Name
-                    </label>
-                    <div class="relative">
-                        <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-[10px] text-slate-300"></i>
-                        <input type="text" name="full_name" required placeholder="Ahmed Alami" class="premium-input pl-10">
+                <form method="POST" class="space-y-5">
+                    {% csrf_token %}
+                    
+                    <div class="space-y-4">
+                        {% for field in form %}
+                        <div class="relative group">
+                            <label class="block text-[10px] font-black {% if field.errors %}text-rose-500{% else %}text-slate-400{% endif %} uppercase tracking-[0.2em] mb-1.5 px-1 group-focus-within:text-blue-500 transition-colors">
+                                {{ field.label }}
+                            </label>
+                            
+                            <div class="premium-input-container">
+                                {{ field }}
+                            </div>
+                            
+                            {% if field.errors %}
+                            <div class="flex items-center gap-1.5 mt-1 px-1 text-rose-500">
+                                <i class="fa-solid fa-caret-up text-[10px]"></i>
+                                <p class="text-[9px] font-bold uppercase tracking-wider">{{ field.errors.0 }}</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
                     </div>
+
+                    <div class="pt-4">
+                        <button type="submit" 
+                                class="group relative w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black py-4 px-6 rounded-xl transition-all hover:bg-blue-600 hover:text-white active:scale-[0.98] shadow-lg flex items-center justify-center gap-3 text-sm">
+                            Create New Center
+                            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <div class="mt-6 pt-6 border-t border-slate-50 dark:border-slate-800 text-center">
+                    <a href="{% url 'owner_dashboard' %}" class="inline-flex items-center gap-2 text-[10px] font-black text-slate-400 hover:text-blue-500 uppercase tracking-widest transition-colors">
+                        <i class="fa-solid fa-chevron-left text-[8px]"></i>
+                        Back to Management
+                    </a>
                 </div>
 
-                <div class="w-full lg:w-48 relative group">
-                    <label class="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2 px-1 group-focus-within:text-indigo-500 transition-colors">
-                        Username
-                    </label>
-                    <input type="text" name="username" required placeholder="alami_edu" class="premium-input">
+                <div class="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl shadow-lg flex items-center justify-center text-white text-xl rotate-12">
+                    <i class="fa-solid fa-plus"></i>
                 </div>
-
-                <div class="w-full lg:flex-1 relative group">
-                    <label class="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2 px-1 group-focus-within:text-indigo-500 transition-colors">
-                        Email Address
-                    </label>
-                    <input type="email" name="email" required placeholder="edu@center.com" class="premium-input">
-                </div>
-
-                <div class="w-full lg:w-48 relative group">
-                    <label class="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2 px-1 group-focus-within:text-indigo-500 transition-colors">
-                        Specialization
-                    </label>
-                    <select name="specialization" class="premium-input appearance-none">
-                        <option value="preschool">Preschool</option>
-                        <option value="primary">Primary</option>
-                        <option value="sports">Sports</option>
-                    </select>
-                </div>
-
-                <div class="w-full lg:w-48 relative group">
-                    <label class="block text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2 px-1 group-focus-within:text-indigo-500 transition-colors">
-                        Password
-                    </label>
-                    <input type="password" name="password" required placeholder="••••••••" class="premium-input">
-                </div>
-
-                <div class="w-full lg:w-auto">
-                    <button type="submit" 
-                            class="h-[46px] px-8 bg-slate-950 dark:bg-white text-white dark:text-slate-900 font-black rounded-xl transition-all hover:bg-indigo-600 hover:text-white active:scale-[0.95] shadow-lg flex items-center justify-center gap-3 text-[11px] uppercase tracking-widest">
-                        Add
-                        <i class="fa-solid fa-plus text-[10px]"></i>
-                    </button>
-                </div>
-            </form>
-
-        </div>
-
-        <div class="flex flex-wrap gap-6 px-4">
-            <div class="flex items-center gap-2 opacity-60">
-                <i class="fa-solid fa-circle-check text-emerald-500 text-[10px]"></i>
-                <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Auto-linked to Center</span>
-            </div>
-            <div class="flex items-center gap-2 opacity-60">
-                <i class="fa-solid fa-shield-halved text-blue-500 text-[10px]"></i>
-                <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Encrypted Password</span>
             </div>
         </div>
     </div>
 </div>
 
 <style>
-    /* Premium Input Styling - Optimized for Single Line */
-    .premium-input {
+    /* Styling updated to be more compact */
+    input, select, textarea {
         width: 100%;
-        height: 46px;
-        padding: 0 1rem !important;
+        padding: 0.75rem 1rem !important; /* Smaller padding */
         background-color: #f8fafc;
         border: 1px solid #f1f5f9;
-        border-radius: 0.85rem !important;
-        font-size: 0.8rem;
-        font-weight: 700;
+        border-radius: 1rem !important;
+        font-size: 0.85rem;
+        font-weight: 600;
         transition: all 0.2s ease;
         outline: none;
     }
 
-    .dark .premium-input {
+    .dark input, .dark select, .dark textarea {
         background-color: #0f172a;
         border-color: #1e293b;
         color: #ffffff;
     }
 
-    .premium-input:focus {
-        border-color: #6366f1;
+    input:focus {
+        border-color: #3b82f6;
         background-color: #ffffff;
-        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
     }
 
-    .dark .premium-input:focus {
+    .dark input:focus {
         background-color: #020617;
     }
 </style>
