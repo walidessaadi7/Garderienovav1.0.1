@@ -114,7 +114,7 @@ def create_educator(request):
             if not director_center:
                 raise AttributeError
         except AttributeError:
-            messages.error(request, "Impossible d'ajouter un éducateur: Vous n'êtes assigné à aucun centre.")
+            
             return redirect('owner_centers_list')
 
         # 3. Recuperation dyal l-data
@@ -155,3 +155,49 @@ def educator_list(request):
     return render(request, 'educator_list.html', {
         'educators': educators
     })
+def edit_educator(request, pk):
+    # 1. Jib l-educator
+    educator = get_object_or_404(Educator, pk=pk)
+    # 2. Jib l-user li taba3 lih (bach l-ma3loumat t-ban f l-inputs)
+    user_to_edit = educator.user
+
+    if request.method == 'POST':
+        # --- Update User Info ---
+        user_to_edit.username = request.POST.get('username')
+        user_to_edit.full_name = request.POST.get('full_name')
+        user_to_edit.email = request.POST.get('email')
+        
+        # Password (ila dkhlo l-director)
+        new_password = request.POST.get('password')
+        if new_password:
+            user_to_edit.set_password(new_password)
+        
+        user_to_edit.save()
+
+        # --- Update Educator Info ---
+        educator.specialization = request.POST.get('specialization')
+        educator.save()
+
+        return redirect('educator_list')
+
+    # 3. Sift l-variables b-jouj l-template
+    context = {
+        'educator': educator,
+        'user_to_edit': user_to_edit
+    }
+    return render(request, 'edit_educator.html', context)
+# views.py
+@login_required
+def delete_educator(request, pk):
+    # 1. Jib l-director li m-connecti daba
+    current_director = get_object_or_404(Director, user=request.user)
+    
+    # 2. Jib l-educator li 3ndo had l-PK O kiy-manger-ih had l-director
+    # Haka 7ta wa7ed may-qder imse7 educator dyal chi center akhor
+    educator = get_object_or_404(Educator, pk=pk, manager=current_director)
+    
+    # 3. Mse7 l-user (ghadi imse7 m3ah l-educator automatique hit dayrin CASCADE)
+    user_to_delete = educator.user
+    user_to_delete.delete()
+    
+    return redirect('educator_list')

@@ -13,5 +13,6 @@ urlpatterns = [
     path('center/<uuid:center_id>/assign-director/', views.assign_director_to_center, name='assign_director'),
     path('educators/new/', views.create_educator, name='create_educator'),
     path('educators/', views.educator_list, name='educator_list'),
-   
+    path('educator/edit/<uuid:pk>/', views.edit_educator, name='edit_educator'),
+    path('educator/delete/<uuid:pk>/', views.delete_educator, name='delete_educator'),
 ]

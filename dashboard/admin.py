@@ -26,5 +26,4 @@ class RoomAdmin(admin.ModelAdmin):
 class GroupAdmin(admin.ModelAdmin):
     list_display = ('group_id', 'center', 'room', 'ratio_category', 'current_total_points', 'is_compliant')
     list_filter = ('center', 'is_compliant', 'ratio_category')
-    # هادي كتعاونك تشوف الـ Groups اللي فيهم مشكل بسرعة
     list_editable = ('is_compliant',)
