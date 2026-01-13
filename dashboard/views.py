@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Center, Organization
 from django.core.mail import send_mail #hadi mzal mkhdemti biha
 from django.conf import settings
-
+#-----------------------------------------------center__info---------------------------------------------------------------------------------
 @login_required
 def create_center(request):
     if request.user.role_type != 'owner':
@@ -62,7 +62,7 @@ def owner_centers_list(request):
         'centers': centers,
         'centers_count': centers_count
     })
-
+#---------------------------------------------------------diractor__info-----------------------------------------------------------------------
 #hna dyal send email sir setting 3endak tensa
 @login_required
 def create_director_general(request):
@@ -89,7 +89,7 @@ def assign_director_to_center(request, center_id):
             form.save()
             return redirect('owner_centers_list')
     else:
-        # Pass user to form in GET (Hna fin knti nassiha)
+        # Pass user to form in GET zebi hna finkenti nasiha
         form = AssignDirectorForm(instance=center, user=request.user)
     
     return render(request, 'assign_director.html', {
