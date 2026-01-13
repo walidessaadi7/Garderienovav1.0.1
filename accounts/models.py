@@ -19,6 +19,10 @@ class Director(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     qualification_cert = models.CharField(max_length=255)
     hired_at = models.DateField()
+    
+   
+    organization = models.ForeignKey('dashboard.Organization', on_delete=models.CASCADE, null=True, blank=True)
+
     def __str__(self):
         return self.user.full_name
 

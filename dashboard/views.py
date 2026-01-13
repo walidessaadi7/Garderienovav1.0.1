@@ -53,15 +53,18 @@ def owner_centers_list(request):
     return render(request, 'centers_list.html', {'centers': centers})
 
 #hna dyal send email sir setting 3endak tensa
+@login_required
 def create_director_general(request):
     if request.method == 'POST':
-        form = DirectorCreationForm(request.POST)
+        # Pass request.user bach n-rbeto l-director b l-owner
+        form = DirectorCreationForm(request.POST, user=request.user)
         if form.is_valid():
             director = form.save()
-            # Mn be3d ma t-creera l-director, sift l-owner i-assignih
-            return redirect('owner_centers_list') # Page fin i-assignih
+            return redirect('owner_centers_list')
     else:
-        form = DirectorCreationForm()
+        form = DirectorCreationForm(user=request.user)
+    
+    return render(request, 'create_director.html', {'form': form})
     
     return render(request, 'create_director.html', {'form': form})
 def assign_director_to_center(request, center_id):
