@@ -1,6 +1,9 @@
 from django import forms
 from .models import Center,Director
 from accounts.models import User
+from django import forms
+from django.contrib.auth import get_user_model
+from accounts.models import Director
 #--center form hadi xof il briti tzid xi haja 
 class CenterCreationForm(forms.ModelForm):
     class Meta:
@@ -17,10 +20,7 @@ class CenterCreationForm(forms.ModelForm):
         labels = {
             'name': 'center name',
         }
-#--add diractor form  hna--
-from django import forms
-from django.contrib.auth import get_user_model
-from accounts.models import Director
+
 
 User = get_user_model()
 class DirectorCreationForm(forms.ModelForm):

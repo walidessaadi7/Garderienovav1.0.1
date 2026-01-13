@@ -48,9 +48,20 @@ def center_info_view(request, center_id):
     return render(request, 'center_info.html', {'center': center})
 
 # Ila bghiti lista kamla dial les centers dial dak l-owner:
+@login_required
 def owner_centers_list(request):
-    centers = Center.objects.filter(org__owner__user=request.user)
-    return render(request, 'centers_list.html', {'centers': centers})
+    # 'select_related' kat-jib l-data dyal org u director f query whda (Performance)
+    centers = Center.objects.filter(
+        org__owner__user=request.user
+    ).select_related('org', 'director', 'director__user')
+    
+    # Hna n-qdrou n-7sbo ch7al men center 3ando
+    centers_count = centers.count()
+    
+    return render(request, 'centers_list.html', {
+        'centers': centers,
+        'centers_count': centers_count
+    })
 
 #hna dyal send email sir setting 3endak tensa
 @login_required
