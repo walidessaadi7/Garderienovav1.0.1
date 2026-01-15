@@ -278,3 +278,9 @@ def import_children_csv(request):
         return redirect("import_children_csv")
 
     return render(request, "import_children.html", {"form": form})
+@login_required
+def children_list(request):
+    # Fetch all children
+    children = Child.objects.select_related('parent', 'center').all()
+
+    return render(request, "children_list.html", {"children": children})

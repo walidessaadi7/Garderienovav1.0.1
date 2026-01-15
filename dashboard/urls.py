@@ -28,8 +28,9 @@ urlpatterns = [
     path('educators/', views.educator_list, name='educator_list'),
     path('educator/edit/<uuid:pk>/', views.edit_educator, name='edit_educator'),
     path('educator/delete/<uuid:pk>/', views.delete_educator, name='delete_educator'),
-  path('import-children/', import_children_csv, name="import_children_csv"),
-    #--------group----------
+    path('import-children/', import_children_csv, name="import_children_csv"),
+    path('parent/children/', views.children_list, name="children_list"),
+     #--------group----------
     # path("groups/add/", group_add_view, name="group_add"),
 
 ]

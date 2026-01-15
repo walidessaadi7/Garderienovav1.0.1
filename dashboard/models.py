@@ -65,9 +65,10 @@ class Child(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name} ({self.parent.user.full_name})"
 
     class Meta:
         verbose_name = "Child"
         verbose_name_plural = "Children"
-        ordering = ["first_name", "last_name"] 
+        ordering = ["first_name", "last_name"]
+    
