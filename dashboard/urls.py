@@ -1,6 +1,19 @@
 from django.urls import path
-from . import views # views dyal dashboard
-from accounts import views as accounts_views # views dyal accounts
+from . import views 
+from accounts import views as accounts_views 
+from .views import (
+    create_center,
+    center_success,
+    center_info_view,
+    owner_centers_list,
+    create_director_general,
+    assign_director_to_center,
+    create_educator,
+    educator_list,
+    edit_educator,
+    delete_educator,
+    import_children_csv  
+)
 
 urlpatterns = [
     # Hna kan-asta3mlo accounts_views bash njbdo l-function li kayna f accounts app
@@ -15,4 +28,8 @@ urlpatterns = [
     path('educators/', views.educator_list, name='educator_list'),
     path('educator/edit/<uuid:pk>/', views.edit_educator, name='edit_educator'),
     path('educator/delete/<uuid:pk>/', views.delete_educator, name='delete_educator'),
+  path('import-children/', import_children_csv, name="import_children_csv"),
+    #--------group----------
+    # path("groups/add/", group_add_view, name="group_add"),
+
 ]

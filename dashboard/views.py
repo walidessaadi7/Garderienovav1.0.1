@@ -8,6 +8,14 @@ from .models import Center, Organization
 from accounts.models import Educator,Director, User
 from django.core.mail import send_mail #hadi mzal mkhdemti biha
 from django.conf import settings
+import csv
+from datetime import datetime
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from .forms import CSVUploadForm
+from dashboard.models import Center, Child
+from accounts.models import Parent, User
+from django.db import transaction
 #-----------------------------------------------center__info---------------------------------------------------------------------------------
 @login_required
 def create_center(request):
@@ -201,3 +209,72 @@ def delete_educator(request, pk):
     user_to_delete.delete()
     
     return redirect('educator_list')
+#----------------------------------------------child o parent dyalo---------------------------------
+
+def import_children_csv(request):
+    form = CSVUploadForm(request.POST or None, request.FILES or None)
+    
+    if request.method == "POST" and form.is_valid():
+        csv_file = form.cleaned_data["file"]
+        decoded_file = csv_file.read().decode('utf-8').splitlines()
+        reader = csv.DictReader(decoded_file)
+
+        errors = []
+        added_children = 0
+
+        # Director's Center
+        center = request.user.director.center
+
+        with transaction.atomic():  # All or nothing
+            for i, row in enumerate(reader, start=2):  # start=2 to count header
+                email = row.get("parent_email")
+                if not email:
+                    errors.append(f"Line {i}: Missing parent email")
+                    continue
+
+                # Parent: create if not exists
+                parent, created = Parent.objects.get_or_create(
+                    user__email=email,
+                    defaults={
+                        "user": User.objects.create(
+                            username=email,
+                            email=email,
+                            full_name=row.get("parent_full_name","No Name"),
+                            role_type="parent"
+                        ),
+                        "home_address": row.get("parent_home_address",""),
+                        "billing_reference": row.get("parent_billing_reference","")
+                    }
+                )
+
+                # Child data validation
+                try:
+                    birth_date = datetime.strptime(row.get("child_birth_date",""), "%Y-%m-%d").date()
+                except ValueError:
+                    errors.append(f"Line {i}: Invalid birth date")
+                    continue
+
+                gender = row.get("child_gender")
+                if gender not in ["M","F"]:
+                    errors.append(f"Line {i}: Invalid gender (M/F)")
+                    continue
+
+                # Create Child
+                Child.objects.create(
+                    center=center,
+                    parent=parent,
+                    first_name=row.get("child_first_name",""),
+                    last_name=row.get("child_last_name",""),
+                    birth_date=birth_date,
+                    gender=gender
+                )
+                added_children += 1
+
+        if errors:
+            for e in errors:
+                messages.error(request, e)
+
+        messages.success(request, f"{added_children} children imported successfully!")
+        return redirect("import_children_csv")
+
+    return render(request, "import_children.html", {"form": form})

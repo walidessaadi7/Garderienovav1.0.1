@@ -110,4 +110,8 @@ class AssignDirectorForm(forms.ModelForm):
             )
         
         self.fields['director'].label = "Available Directors (Created by you)"
-    
+class CSVUploadForm(forms.Form):
+    file = forms.FileField(
+        label="Upload CSV",
+        help_text="Upload a CSV file with parent and children info"
+    )

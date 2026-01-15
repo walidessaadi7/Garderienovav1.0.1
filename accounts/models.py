@@ -14,6 +14,8 @@ class User(AbstractUser):
 class Owner(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     office_address = models.TextField()
+    def __str__(self) :
+        return self.user.full_name
 
 class Director(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
