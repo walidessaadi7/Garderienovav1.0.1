@@ -1,20 +1,21 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User
+from .models import User, Owner, Director, Parent, Educator  # Import all your models
 
 class CustomUserAdmin(UserAdmin):
-    # Hna kankhtarou chno i-ban f l-lixta dyal les users
     list_display = ('username', 'email', 'full_name', 'role_type', 'is_staff')
-    
-    # Hna chno i-ban mli t-clicki 3la user bach t-modifihi
     fieldsets = UserAdmin.fieldsets + (
         ('Extra Info', {'fields': ('role_type', 'full_name', 'phone_number')}),
     )
-    
-    # Hna chno i-ban mli t-creer user jdid men l-admin
     add_fieldsets = UserAdmin.add_fieldsets + (
         ('Extra Info', {'fields': ('role_type', 'full_name', 'phone_number')}),
     )
 
-# Darori t-registri l-model dyalk
+# Register the Custom User
 admin.site.register(User, CustomUserAdmin)
+
+# Register the Profile Models so they appear in Admin
+
+
+admin.site.register(Parent)
+admin.site.register(Educator)

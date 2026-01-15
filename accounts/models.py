@@ -32,6 +32,9 @@ class Parent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     home_address = models.TextField()
     billing_reference = models.CharField(max_length=100)
+    def __str__(self):
+        return self.user.full_name
+    
 class Educator(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     # n-linkiw Educator m3a l-Director li ghadi y-manage-ih
