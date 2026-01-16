@@ -1,148 +1,171 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="min-h-screen bg-slate-50 dark:bg-slate-950 py-10 px-4 md:px-10">
+<div class="min-h-screen bg-[#f8fafc] dark:bg-[#020617] py-8 px-6 md:px-12">
     
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-        <div class="space-y-1">
-            <div class="flex items-center gap-2 text-xs font-black text-blue-600 dark:text-blue-400 uppercase tracking-[0.2em] mb-2">
-                <i class="fa-solid fa-database"></i>
-                <span>Core Registry</span>
+    <div class="max-w-[1600px] mx-auto mb-10">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-8 p-6 rounded-[2.5rem] bg-white/50 dark:bg-slate-950/50 backdrop-blur-xl border border-white dark:border-slate-900 shadow-2xl shadow-slate-200/50 dark:shadow-none">
+            <div>
+                <nav class="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] mb-4">
+                    <span class="text-blue-600 dark:text-blue-400 hover:opacity-70 cursor-pointer transition-all flex items-center gap-2">
+                        <div class="w-1 h-1 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
+                        Organization
+                    </span>
+                    <i class="fa-solid fa-chevron-right text-[7px] text-slate-300 dark:text-slate-700"></i>
+                    <span class="text-slate-400 dark:text-slate-500">Registry</span>
+                </nav>
+                
+                <h1 class="text-6xl font-black tracking-tighter italic">
+                    <span class="bg-gradient-to-br from-slate-950 via-slate-800 to-slate-700 dark:from-white dark:via-slate-200 dark:to-slate-500 bg-clip-text text-transparent">
+                        Registry
+                    </span>
+                    <span class="text-blue-500/20 dark:text-slate-800 mx-1">/</span>
+                    <span class="bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent drop-shadow-sm">
+                        Ops
+                    </span>
+                </h1>
             </div>
-            <h1 class="text-5xl font-black text-slate-900 dark:text-white tracking-tighter">
-                Children <span class="text-slate-300 dark:text-slate-800">/</span> <span class="bg-gradient-to-r from-slate-400 to-slate-600 bg-clip-text text-transparent">Operations</span>
-            </h1>
-        </div>
-
-        <div class="flex items-center gap-3">
-            <div class="hidden md:flex flex-col items-end mr-4">
-                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Last Export</span>
-                <span class="text-xs font-bold text-slate-900 dark:text-white">Jan 15, 2026</span>
+        
+            <div class="flex items-center gap-4">
+                <button class="group flex items-center gap-3 px-6 py-3 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-[11px] font-black uppercase tracking-widest hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-300 shadow-sm">
+                    <i class="fa-solid fa-cloud-arrow-down text-blue-500 group-hover:-translate-y-1 transition-transform"></i> 
+                    Export
+                </button>
+        
+                <button class="relative overflow-hidden group px-8 py-3 rounded-2xl bg-slate-950 dark:bg-blue-600 text-white text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-[0_20px_40px_-15px_rgba(59,130,246,0.4)]">
+                    <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+                    
+                    <span class="relative flex items-center gap-2">
+                        <i class="fa-solid fa-plus text-xs"></i>
+                        New Admission
+                    </span>
+                </button>
             </div>
-            <button class="h-12 w-12 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 flex items-center justify-center hover:bg-slate-50 transition-all shadow-sm">
-                <i class="fa-solid fa-download text-xs"></i>
-            </button>
-            <button class="px-8 h-12 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-black shadow-2xl shadow-slate-900/20 hover:translate-y-[-2px] transition-all">
-                + Add Record
-            </button>
-        </div>
-    </div>
-
-    <div class="max-w-7xl mx-auto mb-6 flex flex-wrap items-center justify-between gap-4">
-        <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0">
-            <button class="px-4 py-2 rounded-xl bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest">All Records</button>
-            <button class="px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 text-[10px] font-black uppercase tracking-widest hover:border-blue-500 transition-all">Active Only</button>
-            <button class="px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 text-[10px] font-black uppercase tracking-widest hover:border-blue-500 transition-all">Pending</button>
         </div>
         
-        <div class="relative w-full md:w-72">
-            <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-            <input type="text" placeholder="Search by name, ID, or parent..." class="w-full pl-10 pr-4 py-3 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-sm font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+        <style>
+            @keyframes shimmer {
+                100% { transform: translateX(100%); }
+            }
+        </style>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
+            <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Active Students</p>
+                <p class="text-2xl font-black text-slate-950 dark:text-white">{{ children|length }} <span class="text-xs text-emerald-500 font-bold">+2%</span></p>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Capacity Utilization</p>
+                <div class="flex items-center gap-3">
+                    <p class="text-2xl font-black text-slate-950 dark:text-white">88%</p>
+                    <div class="flex-1 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <div class="bg-blue-600 h-full w-[88%]"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="max-w-7xl mx-auto">
-        <div class="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
+    <div class="max-w-[1600px] mx-auto">
+        <div class="bg-white dark:bg-slate-950 rounded-[2.5rem] border border-slate-200/60 dark:border-slate-800/60 shadow-2xl shadow-slate-200/20 overflow-hidden">
             
-            <div class="px-8 py-4 border-b border-slate-50 dark:border-slate-800 flex items-center gap-6 bg-slate-50/30 dark:bg-slate-800/20">
-                <div class="flex items-center gap-2">
-                    <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
-                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Select All</span>
-                </div>
-                <div class="h-4 w-[1px] bg-slate-200 dark:bg-slate-700"></div>
+            <div class="p-6 border-b border-slate-100 dark:border-slate-900 flex flex-wrap items-center justify-between gap-4 bg-white/50 dark:bg-slate-950/50 backdrop-blur-md">
                 <div class="flex items-center gap-4">
-                    <button class="text-[10px] font-black text-slate-400 hover:text-slate-900 dark:hover:text-white uppercase tracking-widest transition-colors">Archive</button>
-                    <button class="text-[10px] font-black text-slate-400 hover:text-rose-500 uppercase tracking-widest transition-colors">Delete</button>
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" placeholder="Filter by name..." class="pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border-none text-xs font-bold w-64 focus:ring-2 focus:ring-blue-500/20 transition-all outline-none">
+                    </div>
+                    <select class="bg-transparent border-none text-[10px] font-black uppercase tracking-widest text-slate-500 focus:ring-0 cursor-pointer">
+                        <option>All Facilities</option>
+                        <option>North Center</option>
+                        <option>South Campus</option>
+                    </select>
+                </div>
+                
+                <div class="flex items-center gap-2">
+                    <span class="text-[10px] font-black text-slate-400 uppercase mr-2 tracking-widest">Sort by:</span>
+                    <button class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors"><i class="fa-solid fa-arrow-down-z-a text-xs"></i></button>
+                    <button class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors"><i class="fa-solid fa-sliders text-xs"></i></button>
                 </div>
             </div>
 
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] bg-slate-50/50 dark:bg-slate-800/50">
-                            <th class="px-8 py-6 w-10"></th> <th class="px-8 py-6">Identity & Health</th>
-                            <th class="px-8 py-6">Responsible Party</th>
-                            <th class="px-8 py-6 text-center">Facility</th>
-                            <th class="px-8 py-6 text-center">Status</th>
-                            <th class="px-8 py-6">Verification</th>
-                            <th class="px-8 py-6"></th>
+                        <tr class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] bg-slate-50/30 dark:bg-slate-900/30">
+                            <th class="px-8 py-5 w-12"><input type="checkbox" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500"></th>
+                            <th class="px-6 py-5">Profile Entity</th>
+                            <th class="px-6 py-5">Assigned Guardian</th>
+                            <th class="px-6 py-5">Operational Unit</th>
+                            <th class="px-6 py-5">Status Bar</th>
+                            <th class="px-6 py-5">Compliance</th>
+                            <th class="px-6 py-5 text-right">Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-50 dark:divide-slate-800">
-                        {% if children %}
-                            {% for child in children %}
-                            <tr class="group hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition-all">
-                                <td class="px-8 py-5">
-                                    <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
-                                </td>
-                                <td class="px-8 py-5">
-                                    <div class="flex items-center gap-4">
-                                        <div class="w-12 h-12 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-xs font-black text-blue-600 shadow-sm group-hover:scale-110 transition-transform">
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-900">
+                        {% for child in children %}
+                        <tr class="group hover:bg-slate-50/50 dark:hover:bg-slate-900/40 transition-all">
+                            <td class="px-8 py-5"><input type="checkbox" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500"></td>
+                            <td class="px-6 py-5">
+                                <div class="flex items-center gap-4">
+                                    <div class="relative">
+                                        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-[10px] font-black text-slate-600">
                                             {{ child.first_name|first }}{{ child.last_name|first }}
                                         </div>
-                                        <div>
-                                            <p class="font-black text-slate-900 dark:text-white tracking-tight leading-none mb-1">{{ child.first_name }} {{ child.last_name }}</p>
-                                            <div class="flex items-center gap-2">
-                                                <span class="text-[9px] font-black px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 uppercase">DOB: {{ child.birth_date|date:"Y" }}</span>
-                                                <i class="fa-solid fa-circle text-[4px] text-slate-300"></i>
-                                                <span class="text-[9px] font-black text-blue-500 uppercase italic">Medical Cleared</span>
-                                            </div>
+                                        <div class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-white dark:bg-slate-950 border-2 border-white dark:border-slate-950 flex items-center justify-center">
+                                            <div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
                                         </div>
                                     </div>
-                                </td>
-                                <td class="px-8 py-5">
-                                    <div class="flex flex-col">
-                                        <span class="text-sm font-bold text-slate-700 dark:text-slate-300">{{ child.parent.user.full_name }}</span>
-                                        <div class="flex items-center gap-1.5 mt-1">
-                                            <i class="fa-solid fa-envelope text-[10px] text-slate-300"></i>
-                                            <span class="text-[10px] font-bold text-slate-400">Verified Parent</span>
-                                        </div>
+                                    <div>
+                                        <p class="text-sm font-black text-slate-900 dark:text-white tracking-tight">{{ child.first_name }} {{ child.last_name }}</p>
+                                        <p class="text-[9px] font-black text-blue-500 uppercase tracking-tighter">ID: {{ child.id|stringformat:".8s" }}</p>
                                     </div>
-                                </td>
-                                <td class="px-8 py-5 text-center">
-                                    <span class="inline-flex items-center px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
-                                        {{ child.center.name }}
-                                    </span>
-                                </td>
-                                <td class="px-8 py-5 text-center">
-                                    <div class="flex flex-col items-center gap-1">
-                                        <span class="h-1.5 w-8 rounded-full bg-emerald-500"></span>
-                                        <span class="text-[9px] font-black text-slate-400 uppercase">Enrolled</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-5">
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-slate-700 dark:text-slate-300">{{ child.parent.user.full_name }}</span>
+                                    <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-0.5">Verified Payer</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-5">
+                                <span class="px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                                    {{ child.center.name }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-5">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-16 h-1.5 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
+                                        <div class="bg-emerald-500 h-full w-full"></div>
                                     </div>
-                                </td>
-                                <td class="px-8 py-5">
-                                    <div class="flex -space-x-2">
-                                        <div class="w-6 h-6 rounded-full border-2 border-white dark:border-slate-900 bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[8px] font-black"><i class="fa-solid fa-file-pdf"></i></div>
-                                        <div class="w-6 h-6 rounded-full border-2 border-white dark:border-slate-900 bg-slate-100 dark:border-slate-800 flex items-center justify-center text-[8px] font-black"><i class="fa-solid fa-id-card"></i></div>
-                                    </div>
-                                </td>
-                                <td class="px-8 py-5 text-right">
-                                    <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <button class="w-8 h-8 rounded-lg bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center text-slate-400 hover:text-blue-500 shadow-sm transition-all"><i class="fa-solid fa-pen-to-square text-xs"></i></button>
-                                        <button class="w-8 h-8 rounded-lg bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center text-slate-400 hover:text-rose-500 shadow-sm transition-all"><i class="fa-solid fa-trash text-xs"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        {% else %}
-                            {% endif %}
+                                    <span class="text-[9px] font-black text-slate-400 uppercase">Active</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-5">
+                                <div class="flex items-center gap-1.5">
+                                    <i class="fa-solid fa-circle-check text-emerald-500 text-[10px]"></i>
+                                    <span class="text-[10px] font-bold text-slate-500">Docs OK</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-5 text-right">
+                                <div class="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button class="p-2 rounded-lg hover:bg-white dark:hover:bg-slate-800 text-slate-400 hover:text-blue-500 transition-all border border-transparent hover:border-slate-100 dark:hover:border-slate-700"><i class="fa-solid fa-pen text-xs"></i></button>
+                                    <button class="p-2 rounded-lg hover:bg-white dark:hover:bg-slate-800 text-slate-400 hover:text-rose-500 transition-all border border-transparent hover:border-slate-100 dark:hover:border-slate-700"><i class="fa-solid fa-trash text-xs"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
-            
-            <div class="p-8 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800">
-                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                        Displaying <span class="text-slate-900 dark:text-white">1 - {{ children|length }}</span> of {{ children|length }} Global Records
-                    </p>
-                    <div class="flex items-center gap-2">
-                        <button class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest hover:bg-slate-200 transition-all">Previous</button>
-                        <div class="flex gap-1">
-                            <span class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs font-black">1</span>
-                            <span class="w-8 h-8 rounded-lg hover:bg-slate-100 flex items-center justify-center text-xs font-black cursor-pointer">2</span>
-                        </div>
-                        <button class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest hover:bg-slate-200 transition-all">Next</button>
-                    </div>
+
+            <div class="p-6 bg-slate-50/50 dark:bg-slate-900/20 border-t border-slate-100 dark:border-slate-900 flex items-center justify-between">
+                <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Displaying 50 Per Page</span>
+                <div class="flex items-center gap-1">
+                    <button class="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-white dark:hover:bg-slate-800 text-slate-400"><i class="fa-solid fa-chevron-left text-[10px]"></i></button>
+                    <button class="h-8 w-8 rounded-lg bg-slate-950 dark:bg-white text-white dark:text-slate-950 text-[10px] font-black">1</button>
+                    <button class="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-white dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] font-black">2</button>
+                    <button class="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-white dark:hover:bg-slate-800 text-slate-400"><i class="fa-solid fa-chevron-right text-[10px]"></i></button>
                 </div>
             </div>
         </div>

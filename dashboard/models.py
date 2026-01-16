@@ -19,6 +19,9 @@ class Center(models.Model):
     org = models.ForeignKey(Organization, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     director = models.OneToOneField(Director, on_delete=models.SET_NULL, null=True)
+    def __str__(self):
+        return self.name
+    
 
 class Room(models.Model):
     room_id = models.UUIDField(primary_key=True, default=uuid.uuid4)

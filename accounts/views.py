@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import User, Director
-from dashboard.models import Center
+from .models import Educator, User, Director
+from dashboard.models import Center, Child, Group
 from django.db.models import Q
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
@@ -75,8 +75,35 @@ def owner_dashboard(request):
     })
 @login_required
 def director_dashboard(request):
-    # Idem pour le directeur
-    return render(request, 'director_dashboard.html')
+    # 1. نجبدو المدير لي م-connecté دابا
+    # كنستعملو select_related باش نجبدو الـ Center فـ query وحدة (Performance)
+    director = get_object_or_404(Director.objects.select_related('center'), user=request.user)
+    
+    # 2. نأخدو الـ Center لي تابع ليه هاد المدير
+    center = director.center
+    
+    if not center:
+        # يلا كان المدير مازال ما ت-assign-اش ليه حتى مركز
+        messages.warning(request, "No center assigned to your account yet.")
+        return render(request, 'director_dashboard.html', {'center': None})
+
+    # 3. نجبدو الداتا "فقط" ديال هاد المركز
+    educators_count = Educator.objects.filter(center=center).count()
+    children_count = Child.objects.filter(center=center).count()
+    groups = Group.objects.filter(center=center)
+    
+    # حساب التنبيهات (مثال: مجموع المجموعات لي فيها مشكل Compliance)
+    alerts_count = groups.filter(is_compliant=False).count()
+
+    context = {
+        'center': center,
+        'educators_count': educators_count,
+        'children_count': children_count,
+        'groups': groups,
+        'alerts_count': alerts_count,
+    }
+    
+    return render(request, 'director_dashboard.html', context)
 
 @login_required
 def educator_dashboard(request):
