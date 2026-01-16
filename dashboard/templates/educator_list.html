@@ -4,70 +4,90 @@
 <div class="min-h-screen bg-[#f8fafc] dark:bg-slate-950 p-4 md:p-10 transition-colors duration-500">
     <div class="max-w-7xl mx-auto space-y-10">
         
-        <div class="relative z-10 flex flex-col xl:flex-row xl:items-center justify-between gap-12">
+        <div class="relative z-10 flex flex-col gap-10">
     
-            <div class="flex flex-col gap-6">
-                <div class="flex items-center gap-4">
-                    <div class="relative">
-                        <div class="w-14 h-14 rounded-2xl bg-indigo-600 dark:bg-white flex items-center justify-center shadow-[0_20px_40px_-10px_rgba(79,70,229,0.4)]">
-                            <i class="fa-solid fa-microchip text-white dark:text-indigo-600 text-xl"></i>
+            <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-12">
+                <div class="flex flex-col gap-6">
+                    <div class="flex items-center gap-4">
+                        <div class="relative">
+                            <div class="w-14 h-14 rounded-2xl bg-indigo-600 dark:bg-white flex items-center justify-center shadow-[0_20px_40px_-10px_rgba(79,70,229,0.4)]">
+                                <i class="fa-solid fa-microchip text-white dark:text-indigo-600 text-xl"></i>
+                            </div>
+                            <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-emerald-500 border-4 border-white dark:border-slate-950 rounded-full flex items-center justify-center">
+                                <div class="w-1.5 h-1.5 bg-white rounded-full animate-ping"></div>
+                            </div>
                         </div>
-                        <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-emerald-500 border-4 border-white dark:border-slate-950 rounded-full"></div>
+                        
+                        <div class="flex flex-col">
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] font-black uppercase tracking-[0.4em] text-indigo-600 dark:text-indigo-400">Human Resources</span>
+                                <div class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700"></div>
+                                <span class="text-[10px] font-bold text-slate-400 font-mono">ID: STF-TERM-04</span>
+                            </div>
+                            <h1 class="text-5xl font-black text-slate-950 dark:text-white tracking-tighter leading-none mt-1">
+                                Staff <span class="bg-gradient-to-r from-indigo-600 via-blue-500 to-indigo-400 bg-clip-text text-transparent italic font-serif">Directory</span>
+                            </h1>
+                        </div>
                     </div>
-                    
-                    <div class="flex flex-col">
-                        <div class="flex items-center gap-2">
-                            <span class="text-[10px] font-black uppercase tracking-[0.4em] text-indigo-600 dark:text-indigo-400">Human Resources</span>
-                            <div class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700"></div>
-                            <span class="text-[10px] font-bold text-slate-400 font-mono">ID: STF-TERM-04</span>
+                </div>
+        
+                <div class="flex flex-wrap items-center gap-6">
+                    <div class="relative overflow-hidden bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 p-6 rounded-[2.5rem] flex items-center gap-8 min-w-[280px] group/card">
+                        <div class="flex flex-col">
+                            <span class="text-[9px] font-black uppercase text-slate-400 tracking-[0.3em] mb-1">Personnel</span>
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-4xl font-black text-slate-900 dark:text-white tracking-tighter" id="staffCount">{{ educators|length }}</span>
+                                <span class="text-[10px] font-bold text-indigo-500 font-mono">Educators</span>
+                            </div>
                         </div>
-                        <h1 class="text-6xl font-black text-slate-950 dark:text-white tracking-tighter leading-none mt-1">
-                            Staff <span class="bg-gradient-to-r from-indigo-600 via-blue-500 to-indigo-400 bg-clip-text text-transparent italic font-serif">Directory</span>
-                        </h1>
+                        
+                        <div class="h-12 w-px bg-slate-200 dark:bg-slate-800"></div>
+                        
+                        <div class="flex flex-col">
+                            <span class="text-[9px] font-black uppercase text-emerald-500 tracking-[0.3em] mb-1">Status</span>
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></div>
+                                <span class="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tighter">Live Access</span>
+                            </div>
+                        </div>
+                        <div class="absolute -right-4 -bottom-4 opacity-[0.05] dark:opacity-[0.1] pointer-events-none group-hover:rotate-12 transition-transform duration-1000">
+                            <i class="fa-solid fa-fingerprint text-7xl text-slate-950 dark:text-white"></i>
+                        </div>
+                    </div>
+        
+                    <div class="hidden md:flex flex-col items-end px-6 py-4 rounded-[2rem] border border-dashed border-slate-200 dark:border-slate-800">
+                        <span class="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-2">Internal Sync</span>
+                        <div class="flex gap-1">
+                            <div class="w-1 h-3 bg-indigo-500 rounded-full animate-[bounce_2s_infinite_0ms]"></div>
+                            <div class="w-1 h-4 bg-indigo-500 rounded-full animate-[bounce_2s_infinite_200ms]"></div>
+                            <div class="w-1 h-2 bg-indigo-500/30 rounded-full animate-[bounce_2s_infinite_400ms]"></div>
+                            <div class="w-1 h-5 bg-indigo-500 rounded-full animate-[bounce_2s_infinite_600ms]"></div>
+                        </div>
+                    </div>
+        
+                    <div class="flex items-center justify-center w-14 h-14 rounded-full border-2 border-slate-100 dark:border-slate-800 text-slate-400 hover:text-indigo-500 hover:border-indigo-500 transition-all cursor-help" title="Administrative Override Active">
+                        <i class="fa-solid fa-shield-quartered text-lg"></i>
                     </div>
                 </div>
             </div>
         
-            <div class="flex flex-wrap items-center gap-6">
-                
-                <div class="relative overflow-hidden bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 p-6 rounded-[2.5rem] flex items-center gap-8 min-w-[280px] group/card">
-                    <div class="flex flex-col">
-                        <span class="text-[9px] font-black uppercase text-slate-400 tracking-[0.3em] mb-1">Personnel</span>
-                        <div class="flex items-baseline gap-2">
-                            <span class="text-4xl font-black text-slate-900 dark:text-white tracking-tighter" id="staffCount">{{ educators|length }}</span>
-                            <span class="text-[10px] font-bold text-indigo-500 font-mono">UNIT_COUNT</span>
+            <div class="relative max-w-2xl group-hover:translate-x-2 transition-transform duration-700">
+                <div class="absolute -left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-indigo-600 to-transparent rounded-full opacity-50"></div>
+                <p class="text-sm md:text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium tracking-tight">
+                    Accessing the <span class="text-slate-900 dark:text-white font-bold">Central Intelligence Node</span> for personnel management. 
+                    This encrypted directory provides real-time telemetry on staff deployment, security clearance levels, and operational status across all active administrative sectors. 
+                    Maintain protocol integrity while navigating the core educator registry.
+                </p>
+                <div class="flex items-center gap-4 mt-4">
+                    <div class="flex -space-x-2">
+                        <div class="w-6 h-6 rounded-full border-2 border-white dark:border-slate-950 bg-slate-200 dark:bg-slate-800"></div>
+                        <div class="w-6 h-6 rounded-full border-2 border-white dark:border-slate-950 bg-slate-300 dark:bg-slate-700"></div>
+                        <div class="w-6 h-6 rounded-full border-2 border-white dark:border-slate-950 bg-indigo-500 flex items-center justify-center">
+                            <span class="text-[8px] text-white font-bold">+{{ educators|length }}</span>
                         </div>
                     </div>
-                    
-                    <div class="h-12 w-px bg-slate-200 dark:bg-slate-800"></div>
-                    
-                    <div class="flex flex-col">
-                        <span class="text-[9px] font-black uppercase text-emerald-500 tracking-[0.3em] mb-1">Status</span>
-                        <div class="flex items-center gap-2">
-                            <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></div>
-                            <span class="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tighter">Live Access</span>
-                        </div>
-                    </div>
-        
-                    <div class="absolute -right-4 -bottom-4 opacity-[0.05] dark:opacity-[0.1] pointer-events-none group-hover:rotate-12 transition-transform duration-1000">
-                        <i class="fa-solid fa-fingerprint text-7xl text-slate-950 dark:text-white"></i>
-                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Authorized Personnel Only</span>
                 </div>
-        
-                <div class="hidden md:flex flex-col items-end px-6 py-4 rounded-[2rem] border border-dashed border-slate-200 dark:border-slate-800">
-                    <span class="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-2">Internal Sync</span>
-                    <div class="flex gap-1">
-                        <div class="w-1 h-3 bg-indigo-500 rounded-full"></div>
-                        <div class="w-1 h-4 bg-indigo-500 rounded-full"></div>
-                        <div class="w-1 h-2 bg-indigo-500/30 rounded-full"></div>
-                        <div class="w-1 h-5 bg-indigo-500 rounded-full"></div>
-                    </div>
-                </div>
-        
-                <div class="flex items-center justify-center w-14 h-14 rounded-full border-2 border-slate-100 dark:border-slate-800 text-slate-400 hover:text-indigo-500 hover:border-indigo-500 transition-all cursor-help" title="Administrative Override Active">
-                    <i class="fa-solid fa-shield-quartered text-lg"></i>
-                </div>
-        
             </div>
         </div>
 
@@ -129,7 +149,7 @@
                     <div class="mt-8 flex items-center gap-3">
                         <a href="{% url 'edit_educator' edu.pk %}" 
                            class="flex-1 bg-slate-950 dark:bg-white text-white dark:text-slate-950 py-4 rounded-[1.5rem] text-[10px] font-black uppercase tracking-widest transition-all text-center hover:bg-indigo-600 hover:text-white">
-                            View Profile
+                            Update Profile
                         </a>
                         <a href="{% url 'delete_educator' edu.pk %}" 
                            class="w-14 h-14 flex items-center justify-center rounded-[1.5rem] bg-slate-50 dark:bg-slate-800 text-slate-400 hover:bg-rose-500 hover:text-white transition-all duration-300">
