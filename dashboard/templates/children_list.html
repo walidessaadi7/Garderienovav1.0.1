@@ -1,65 +1,48 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="min-h-screen bg-[#f8fafc] dark:bg-[#020617] py-8 px-6 md:px-12">
+<div class="min-h-screen bg-[#f8fafc] dark:bg-[#020617] py-10 px-6 md:px-12 transition-colors duration-500">
     
     <div class="max-w-[1600px] mx-auto mb-10">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-8 p-6 rounded-[2.5rem] bg-white/50 dark:bg-slate-950/50 backdrop-blur-xl border border-white dark:border-slate-900 shadow-2xl shadow-slate-200/50 dark:shadow-none">
-            <div>
-                <nav class="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] mb-4">
-                    <span class="text-blue-600 dark:text-blue-400 hover:opacity-70 cursor-pointer transition-all flex items-center gap-2">
-                        <div class="w-1 h-1 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
-                        Organization
-                    </span>
-                    <i class="fa-solid fa-chevron-right text-[7px] text-slate-300 dark:text-slate-700"></i>
-                    <span class="text-slate-400 dark:text-slate-500">Registry</span>
-                </nav>
-                
-                <h1 class="text-6xl font-black tracking-tighter italic">
-                    <span class="bg-gradient-to-br from-slate-950 via-slate-800 to-slate-700 dark:from-white dark:via-slate-200 dark:to-slate-500 bg-clip-text text-transparent">
-                        Registry
-                    </span>
-                    <span class="text-blue-500/20 dark:text-slate-800 mx-1">/</span>
-                    <span class="bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent drop-shadow-sm">
-                        Ops
-                    </span>
-                </h1>
-            </div>
+        <div class="relative overflow-hidden p-12 rounded-[3.5rem] bg-white dark:bg-slate-950 border border-slate-200/50 dark:border-slate-800/50 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.05)] dark:shadow-none group transition-all duration-700">
+    
+            <div class="absolute -right-40 -top-40 w-[500px] h-[500px] bg-blue-500/[0.04] rounded-full blur-[120px] group-hover:bg-blue-500/[0.08] transition-all duration-1000"></div>
+            <div class="absolute -left-40 -bottom-40 w-[500px] h-[500px] bg-emerald-500/[0.04] rounded-full blur-[120px] group-hover:bg-emerald-500/[0.08] transition-all duration-1000"></div>
         
-            <div class="flex items-center gap-4">
-                <button class="group flex items-center gap-3 px-6 py-3 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-[11px] font-black uppercase tracking-widest hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-300 shadow-sm">
-                    <i class="fa-solid fa-cloud-arrow-down text-blue-500 group-hover:-translate-y-1 transition-transform"></i> 
-                    Export
-                </button>
-        
-                <button class="relative overflow-hidden group px-8 py-3 rounded-2xl bg-slate-950 dark:bg-blue-600 text-white text-[11px] font-black uppercase tracking-widest transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-[0_20px_40px_-15px_rgba(59,130,246,0.4)]">
-                    <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+            <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-12">
+                <div class="max-w-full space-y-6">
+                    <nav class="flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.4em] mb-4">
+                        <span class="text-emerald-500 flex items-center gap-2.5">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            Registry Control
+                        </span>
+                        <i class="fa-solid fa-chevron-right text-[8px] text-slate-300"></i>
+                        <span class="text-slate-400">Live Database</span>
+                    </nav>
                     
-                    <span class="relative flex items-center gap-2">
-                        <i class="fa-solid fa-plus text-xs"></i>
-                        New Admission
-                    </span>
-                </button>
-            </div>
-        </div>
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-none whitespace-nowrap overflow-hidden">
+                        <span class="bg-gradient-to-br from-slate-950 via-slate-800 to-slate-700 dark:from-white dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent">Child List</span>
+                        <span class="bg-gradient-to-r from-blue-600 via-blue-500 to-emerald-400 bg-clip-text text-transparent italic ml-3">& Registry</span>
+                    </h1>
         
-        <style>
-            @keyframes shimmer {
-                100% { transform: translateX(100%); }
-            }
-        </style>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
-            <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
-                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Active Students</p>
-                <p class="text-2xl font-black text-slate-950 dark:text-white">{{ children|length }} <span class="text-xs text-emerald-500 font-bold">+2%</span></p>
-            </div>
-            <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
-                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Capacity Utilization</p>
-                <div class="flex items-center gap-3">
-                    <p class="text-2xl font-black text-slate-950 dark:text-white">88%</p>
-                    <div class="flex-1 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                        <div class="bg-blue-600 h-full w-[88%]"></div>
+                    <p class="text-base font-bold text-slate-400 dark:text-slate-500 tracking-tight leading-relaxed flex items-center flex-wrap gap-2">
+                        Centralized management system for
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-slate-900 dark:text-white transition-colors group-hover:border-blue-500/30">
+                            <i class="fa-solid fa-database text-[10px] text-blue-500"></i>
+                            {{ children|length }} Active Profiles
+                        </span> 
+                        within the current enrollment cycle.
+                    </p>
+                </div>
+        
+                <div class="hidden xl:flex items-center gap-10">
+                    <div class="h-12 w-px bg-slate-100 dark:bg-slate-900"></div>
+                    <div class="flex flex-col items-end gap-1">
+                        <span class="text-[9px] font-black text-slate-300 dark:text-slate-700 uppercase tracking-[0.3em]">Sync Status</span>
+                        <span class="text-xs font-black text-emerald-500 uppercase italic">Live Connection</span>
                     </div>
                 </div>
             </div>
@@ -67,108 +50,235 @@
     </div>
 
     <div class="max-w-[1600px] mx-auto">
-        <div class="bg-white dark:bg-slate-950 rounded-[2.5rem] border border-slate-200/60 dark:border-slate-800/60 shadow-2xl shadow-slate-200/20 overflow-hidden">
-            
-            <div class="p-6 border-b border-slate-100 dark:border-slate-900 flex flex-wrap items-center justify-between gap-4 bg-white/50 dark:bg-slate-950/50 backdrop-blur-md">
-                <div class="flex items-center gap-4">
-                    <div class="relative">
-                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                        <input type="text" placeholder="Filter by name..." class="pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border-none text-xs font-bold w-64 focus:ring-2 focus:ring-blue-500/20 transition-all outline-none">
-                    </div>
-                    <select class="bg-transparent border-none text-[10px] font-black uppercase tracking-widest text-slate-500 focus:ring-0 cursor-pointer">
-                        <option>All Facilities</option>
-                        <option>North Center</option>
-                        <option>South Campus</option>
-                    </select>
-                </div>
+        <div class="relative group mt-8">
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] pointer-events-none transition-opacity group-hover:opacity-100 opacity-50"></div>
+            <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none transition-opacity group-hover:opacity-100 opacity-50"></div>
+        
+            <div class="relative bg-white dark:bg-slate-950 rounded-[3.5rem] border border-slate-200/60 dark:border-slate-800/50 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.05)] overflow-hidden backdrop-blur-xl transition-all duration-700">
                 
-                <div class="flex items-center gap-2">
-                    <span class="text-[10px] font-black text-slate-400 uppercase mr-2 tracking-widest">Sort by:</span>
-                    <button class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors"><i class="fa-solid fa-arrow-down-z-a text-xs"></i></button>
-                    <button class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors"><i class="fa-solid fa-sliders text-xs"></i></button>
+                <div class="p-10 border-b border-slate-100/80 dark:border-slate-900/80 bg-white/40 dark:bg-slate-950/40">
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-10">
+                        
+                        <div class="flex flex-wrap items-center gap-6">
+                            <div class="relative group/search">
+                                <span class="absolute -top-2.5 left-6 px-2 bg-white dark:bg-slate-950 text-[8px] font-black text-blue-500 uppercase tracking-[0.2em] z-10 scale-90 group-focus-within/search:scale-100 transition-transform">Registry Query</span>
+                                
+                                <div class="absolute left-5 top-1/2 -translate-y-1/2 flex items-center gap-3 pointer-events-none">
+                                    <i class="fa-solid fa-magnifying-glass text-slate-300 dark:text-slate-600 text-[10px] group-focus-within/search:text-blue-500 transition-colors"></i>
+                                    <div class="h-4 w-px bg-slate-100 dark:bg-slate-800"></div>
+                                </div>
+        
+                                <input type="text" id="studentSearch" placeholder="Filter by intelligence..." 
+                                       class="pl-16 pr-20 py-5 rounded-[1.75rem] bg-slate-50/50 dark:bg-slate-900/50 border border-slate-200/50 dark:border-slate-800/50 focus:border-blue-500/30 focus:ring-[6px] focus:ring-blue-500/5 text-[11px] font-black uppercase tracking-tight w-full md:w-[480px] transition-all duration-500 outline-none placeholder:text-slate-400">
+                                
+                                <div class="absolute right-5 top-1/2 -translate-y-1/2 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700 shadow-sm group-focus-within/search:opacity-0 transition-opacity pointer-events-none">
+                                    <span class="text-[9px] font-black text-slate-400">⌘</span>
+                                    <span class="text-[9px] font-black text-slate-400">K</span>
+                                </div>
+                            </div>
+        
+                            <div class="flex items-center p-1.5 rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-100 dark:border-slate-800">
+                                <button class="px-5 py-2.5 rounded-xl bg-white dark:bg-slate-800 shadow-sm text-[9px] font-black uppercase tracking-widest text-blue-500 transition-all">Active</button>
+                                <button class="px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-all">Archived</button>
+                            </div>
+                        </div>
+        
+                        <div class="flex items-center gap-8">
+                            <div class="h-12 w-px bg-slate-100 dark:bg-slate-900 hidden lg:block"></div>
+                            
+                            <div class="relative group/counter">
+                                <div class="absolute -inset-3 bg-blue-500/5 rounded-[2rem] blur-xl opacity-0 group-hover/counter:opacity-100 transition-all"></div>
+                                <div class="relative flex items-center gap-5">
+                                    <div class="flex flex-col items-end">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span class="text-[8px] font-black text-slate-300 dark:text-slate-600 uppercase tracking-[0.2em]">Visible Scope</span>
+                                            <div class="w-1 h-1 rounded-full bg-blue-500 animate-pulse"></div>
+                                        </div>
+                                        <div class="flex items-baseline gap-2">
+                                            <span id="visibleCount" class="text-3xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">{{ children|length }}</span>
+                                            <span class="text-[10px] font-bold text-slate-400">/{{ children|length }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="relative w-12 h-12">
+                                     
+                                        <i class="fa-solid fa-chart-simple absolute inset-0 flex items-center justify-center text-[10px] text-blue-500/40"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] bg-slate-50/30 dark:bg-slate-900/30">
-                            <th class="px-8 py-5 w-12"><input type="checkbox" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500"></th>
-                            <th class="px-6 py-5">Profile Entity</th>
-                            <th class="px-6 py-5">Assigned Guardian</th>
-                            <th class="px-6 py-5">Operational Unit</th>
-                            <th class="px-6 py-5">Status Bar</th>
-                            <th class="px-6 py-5">Compliance</th>
-                            <th class="px-6 py-5 text-right">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-100 dark:divide-slate-900">
-                        {% for child in children %}
-                        <tr class="group hover:bg-slate-50/50 dark:hover:bg-slate-900/40 transition-all">
-                            <td class="px-8 py-5"><input type="checkbox" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500"></td>
-                            <td class="px-6 py-5">
-                                <div class="flex items-center gap-4">
-                                    <div class="relative">
-                                        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-[10px] font-black text-slate-600">
-                                            {{ child.first_name|first }}{{ child.last_name|first }}
+        
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse" id="registryTable">
+                        <thead>
+                            <tr class="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em] bg-slate-50/30 dark:bg-slate-900/30">
+                                <th class="pl-12 pr-6 py-8">
+                                    <div class="flex items-center gap-3">
+                                        <span>Entity Identity</span>
+                                        <i class="fa-solid fa-sort-down text-slate-300"></i>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-8">Guardian Context</th>
+                                <th class="px-6 py-8">Assigned Node</th>
+                                <th class="px-6 py-8">Operational Status</th>
+                                <th class="pr-12 pl-6 py-8 text-right">Control Trace</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100/50 dark:divide-slate-900/50">
+                            {% for child in children %}
+                            <tr class="student-row group/row hover:bg-blue-500/[0.01] transition-all duration-500">
+                                <td class="pl-12 pr-6 py-7">
+                                    <div class="flex items-center gap-5">
+                                        <div class="relative">
+                                            <div class="w-14 h-14 rounded-[1.5rem] bg-gradient-to-br from-white to-slate-100 dark:from-slate-900 dark:to-slate-950 border border-slate-200 dark:border-slate-800 flex items-center justify-center shadow-sm group-hover/row:scale-105 transition-transform duration-500">
+                                                <span class="text-xs font-black text-slate-900 dark:text-white">{{ child.first_name|first }}{{ child.last_name|first }}</span>
+                                            </div>
+                                            <div class="absolute -top-1 -left-1 px-1.5 py-0.5 rounded-md bg-blue-500 text-[7px] font-black text-white uppercase shadow-lg shadow-blue-500/20">Pro</div>
                                         </div>
-                                        <div class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-white dark:bg-slate-950 border-2 border-white dark:border-slate-950 flex items-center justify-center">
-                                            <div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+                                        <div class="flex flex-col gap-1">
+                                            <span class="search-target text-sm font-black text-slate-900 dark:text-white tracking-tight group-hover/row:text-blue-500 transition-colors">{{ child.first_name }} {{ child.last_name }}</span>
+                                            <div class="flex items-center gap-2">
+                                                <span class="search-target text-[9px] font-black text-slate-400 tracking-widest uppercase">ID: 00{{ child.id }}</span>
+                                                <div class="w-1 h-1 rounded-full bg-slate-300"></div>
+                                                <span class="text-[9px] font-black text-slate-300">v1.2</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div>
-                                        <p class="text-sm font-black text-slate-900 dark:text-white tracking-tight">{{ child.first_name }} {{ child.last_name }}</p>
-                                        <p class="text-[9px] font-black text-blue-500 uppercase tracking-tighter">ID: {{ child.id|stringformat:".8s" }}</p>
+                                </td>
+                                
+                                <td class="px-6 py-7">
+                                    <div class="inline-flex flex-col gap-1.5 px-4 py-2.5 rounded-2xl bg-slate-50/50 dark:bg-slate-900/30 border border-slate-100 dark:border-slate-800/50 group-hover/row:border-blue-500/10 transition-colors">
+                                        <span class="search-target text-[11px] font-bold text-slate-700 dark:text-slate-300">{{ child.parent.user.full_name }}</span>
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa-solid fa-shield-check text-[8px] text-emerald-500"></i>
+                                            <span class="text-[8px] font-black text-slate-400 uppercase">Authenticated</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5">
-                                <div class="flex flex-col">
-                                    <span class="text-xs font-bold text-slate-700 dark:text-slate-300">{{ child.parent.user.full_name }}</span>
-                                    <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest mt-0.5">Verified Payer</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span class="px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[10px] font-black text-slate-500 uppercase tracking-widest">
-                                    {{ child.center.name }}
-                                </span>
-                            </td>
-                            <td class="px-6 py-5">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-16 h-1.5 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
-                                        <div class="bg-emerald-500 h-full w-full"></div>
+                                </td>
+        
+                                <td class="px-6 py-7">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+                                        <span class="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest">{{ child.center.name }}</span>
                                     </div>
-                                    <span class="text-[9px] font-black text-slate-400 uppercase">Active</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5">
-                                <div class="flex items-center gap-1.5">
-                                    <i class="fa-solid fa-circle-check text-emerald-500 text-[10px]"></i>
-                                    <span class="text-[10px] font-bold text-slate-500">Docs OK</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5 text-right">
-                                <div class="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <button class="p-2 rounded-lg hover:bg-white dark:hover:bg-slate-800 text-slate-400 hover:text-blue-500 transition-all border border-transparent hover:border-slate-100 dark:hover:border-slate-700"><i class="fa-solid fa-pen text-xs"></i></button>
-                                    <button class="p-2 rounded-lg hover:bg-white dark:hover:bg-slate-800 text-slate-400 hover:text-rose-500 transition-all border border-transparent hover:border-slate-100 dark:hover:border-slate-700"><i class="fa-solid fa-trash text-xs"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="p-6 bg-slate-50/50 dark:bg-slate-900/20 border-t border-slate-100 dark:border-slate-900 flex items-center justify-between">
-                <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Displaying 50 Per Page</span>
-                <div class="flex items-center gap-1">
-                    <button class="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-white dark:hover:bg-slate-800 text-slate-400"><i class="fa-solid fa-chevron-left text-[10px]"></i></button>
-                    <button class="h-8 w-8 rounded-lg bg-slate-950 dark:bg-white text-white dark:text-slate-950 text-[10px] font-black">1</button>
-                    <button class="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-white dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] font-black">2</button>
-                    <button class="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-white dark:hover:bg-slate-800 text-slate-400"><i class="fa-solid fa-chevron-right text-[10px]"></i></button>
+                                </td>
+        
+                                <td class="px-6 py-7">
+                                    <div class="flex flex-col gap-2">
+                                        <div class="w-24 h-1 rounded-full bg-slate-100 dark:bg-slate-900 overflow-hidden">
+                                            <div class="w-[85%] h-full bg-gradient-to-r from-blue-500 to-emerald-400 rounded-full"></div>
+                                        </div>
+                                        <span class="text-[9px] font-black text-slate-400 uppercase tracking-[0.1em]">85% Profile Strength</span>
+                                    </div>
+                                </td>
+        
+                                <td class="pr-12 pl-6 py-7 text-right">
+                                    <div class="flex items-center justify-end gap-3 opacity-0 group-hover/row:opacity-100 transition-all duration-300 translate-x-4 group-hover/row:translate-x-0">
+                                        <button title="Edit Record" class="w-10 h-10 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 flex items-center justify-center text-slate-400 hover:text-blue-500 hover:shadow-xl hover:shadow-blue-500/10 transition-all">
+                                            <i class="fa-solid fa-fingerprint text-xs"></i>
+                                        </button>
+                                        <button title="Settings" class="w-10 h-10 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 flex items-center justify-center text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">
+                                            <i class="fa-solid fa-sliders text-xs"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+        
+                <div class="p-10 bg-slate-50/50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-900/80 flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div class="flex items-center gap-6">
+                        <div class="flex -space-x-3">
+                            <div class="w-8 h-8 rounded-full border-4 border-white dark:border-slate-900 bg-slate-200"></div>
+                            <div class="w-8 h-8 rounded-full border-4 border-white dark:border-slate-900 bg-slate-300"></div>
+                            <div class="w-8 h-8 rounded-full border-4 border-white dark:border-slate-900 bg-blue-500 flex items-center justify-center text-[8px] font-black text-white">+5</div>
+                        </div>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Global Node Latency: <span class="text-emerald-500">24ms</span></p>
+                    </div>
+        
+                    <div class="flex items-center gap-4 bg-white dark:bg-slate-950 p-1.5 rounded-[1.25rem] border border-slate-100 dark:border-slate-800 shadow-sm">
+                        <button class="w-10 h-10 rounded-xl flex items-center justify-center text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 transition-all">
+                            <i class="fa-solid fa-chevron-left text-[10px]"></i>
+                        </button>
+                        <div class="h-4 w-px bg-slate-100 dark:bg-slate-800"></div>
+                        <span class="px-4 text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-tighter">Cluster 01 / 01</span>
+                        <div class="h-4 w-px bg-slate-100 dark:bg-slate-800"></div>
+                        <button class="w-10 h-10 rounded-xl flex items-center justify-center text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 transition-all">
+                            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+
+    /* Custom Scrollbar */
+    .overflow-x-auto::-webkit-scrollbar { height: 6px; }
+    .overflow-x-auto::-webkit-scrollbar-track { background: transparent; }
+    .overflow-x-auto::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+    .dark .overflow-x-auto::-webkit-scrollbar-thumb { background: #1e293b; }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('studentSearch');
+    const rows = document.querySelectorAll('.student-row');
+    const visibleCount = document.getElementById('visibleCount');
+    const noResults = document.getElementById('noResults');
+    const table = document.getElementById('registryTable');
+
+    // Debounce to improve performance
+    function debounce(func, timeout = 250) {
+        let timer;
+        return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => { func.apply(this, args); }, timeout);
+        };
+    }
+
+    const performSearch = debounce((term) => {
+        const keywords = term.toLowerCase().split(' ').filter(k => k.length > 0);
+        let count = 0;
+
+        rows.forEach(row => {
+            const targets = row.querySelectorAll('.search-target');
+            const rowText = Array.from(targets).map(el => el.textContent.toLowerCase()).join(' ');
+            
+            // Pro Logic: Check if EVERY keyword is present in the row text
+            const isMatch = keywords.every(kw => rowText.includes(kw));
+
+            if (isMatch) {
+                row.style.display = "";
+                count++;
+            } else {
+                row.style.display = "none";
+            }
+        });
+
+        // Update UI
+        visibleCount.textContent = count;
+        
+        if (count === 0 && keywords.length > 0) {
+            table.classList.add('hidden');
+            noResults.classList.remove('hidden');
+        } else {
+            table.classList.remove('hidden');
+            noResults.classList.add('hidden');
+        }
+    });
+
+    searchInput.addEventListener('input', (e) => performSearch(e.target.value));
+});
+</script>
 {% endblock %}
