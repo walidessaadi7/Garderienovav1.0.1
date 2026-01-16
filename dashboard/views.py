@@ -221,60 +221,60 @@ def import_children_csv(request):
 
         errors = []
         added_children = 0
-
-        # Director's Center
         center = request.user.director.center
 
-        with transaction.atomic():  # All or nothing
-            for i, row in enumerate(reader, start=2):  # start=2 to count header
-                email = row.get("parent_email")
-                if not email:
-                    errors.append(f"Line {i}: Missing parent email")
-                    continue
+        try:
+            with transaction.atomic():
+                for i, row in enumerate(reader, start=2):
+                    email = row.get("parent_email", "").strip()
+                    if not email:
+                        errors.append(f"Line {i}: Missing parent email")
+                        continue
 
-                # Parent: create if not exists
-                parent, created = Parent.objects.get_or_create(
-                    user__email=email,
-                    defaults={
-                        "user": User.objects.create(
-                            username=email,
-                            email=email,
-                            full_name=row.get("parent_full_name","No Name"),
-                            role_type="parent"
-                        ),
-                        "home_address": row.get("parent_home_address",""),
-                        "billing_reference": row.get("parent_billing_reference","")
-                    }
-                )
+                    user, user_created = User.objects.get_or_create(
+                        email=email,
+                        defaults={
+                            "username": email,
+                            "full_name": row.get("parent_full_name", "No Name"),
+                            "role_type": "parent"
+                        }
+                    )
 
-                # Child data validation
-                try:
-                    birth_date = datetime.strptime(row.get("child_birth_date",""), "%Y-%m-%d").date()
-                except ValueError:
-                    errors.append(f"Line {i}: Invalid birth date")
-                    continue
+                    
+                    parent, parent_created = Parent.objects.get_or_create(
+                        user=user,
+                        defaults={
+                            "home_address": row.get("parent_home_address", ""),
+                            "billing_reference": row.get("parent_billing_reference", "")
+                        }
+                    )
 
-                gender = row.get("child_gender")
-                if gender not in ["M","F"]:
-                    errors.append(f"Line {i}: Invalid gender (M/F)")
-                    continue
+                   
+                    try:
+                        date_str = row.get("child_birth_date", "")
+                        birth_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+                    except (ValueError, TypeError):
+                        errors.append(f"Line {i}: Invalid birth date format ({date_str})")
+                        continue
 
-                # Create Child
-                Child.objects.create(
-                    center=center,
-                    parent=parent,
-                    first_name=row.get("child_first_name",""),
-                    last_name=row.get("child_last_name",""),
-                    birth_date=birth_date,
-                    gender=gender
-                )
-                added_children += 1
+                    Child.objects.create(
+                        center=center,
+                        parent=parent,
+                        first_name=row.get("child_first_name", ""),
+                        last_name=row.get("child_last_name", ""),
+                        birth_date=birth_date,
+                        gender=row.get("child_gender", "M")
+                    )
+                    added_children += 1
+
+        except Exception as e:
+            messages.error(request, f"System Error at line {i}: {str(e)}")
+            return redirect("import_children_csv")
 
         if errors:
-            for e in errors:
-                messages.error(request, e)
+            for e in errors: messages.error(request, e)
 
-        messages.success(request, f"{added_children} children imported successfully!")
+       
         return redirect("import_children_csv")
 
     return render(request, "import_children.html", {"form": form})
